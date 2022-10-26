@@ -1,0 +1,14 @@
+syntax = "proto3";
+package edgexdevice;
+option go_package = "github.com/winc-link/edgex-driver-proto/edgexdevice";
+import "edgexcommon/edgexcommon.proto";
+
+message ConnectIotCloudRequest {
+  edgexcommon.baseIotPlatformMessage baseIotPlatformMessage = 1;
+  string deviceId = 2;
+}
+
+service RpcDevice {
+  //设备连接云服务
+  rpc ConnectIotCloud(ConnectIotCloudRequest) returns (edgexcommon.CommonResponse) {}
+}

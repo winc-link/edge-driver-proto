@@ -2,13 +2,13 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.14.0
-// source: device/device.proto
+// source: edgexdevice/edgexdevice.proto
 
-package device
+package edgexdevice
 
 import (
 	context "context"
-	drivercommon "github.com/winc-link/edgex-driver-proto/drivercommon"
+	edgexcommon "github.com/winc-link/edgex-driver-proto/edgexcommon"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -24,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RpcDeviceClient interface {
 	//设备连接云服务
-	ConnectIotCloud(ctx context.Context, in *ConnectIotCloudRequest, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error)
+	ConnectIotCloud(ctx context.Context, in *ConnectIotCloudRequest, opts ...grpc.CallOption) (*edgexcommon.CommonResponse, error)
 }
 
 type rpcDeviceClient struct {
@@ -35,9 +35,9 @@ func NewRpcDeviceClient(cc grpc.ClientConnInterface) RpcDeviceClient {
 	return &rpcDeviceClient{cc}
 }
 
-func (c *rpcDeviceClient) ConnectIotCloud(ctx context.Context, in *ConnectIotCloudRequest, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error) {
-	out := new(drivercommon.CommonResponse)
-	err := c.cc.Invoke(ctx, "/device.RpcDevice/ConnectIotCloud", in, out, opts...)
+func (c *rpcDeviceClient) ConnectIotCloud(ctx context.Context, in *ConnectIotCloudRequest, opts ...grpc.CallOption) (*edgexcommon.CommonResponse, error) {
+	out := new(edgexcommon.CommonResponse)
+	err := c.cc.Invoke(ctx, "/edgexdevice.RpcDevice/ConnectIotCloud", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (c *rpcDeviceClient) ConnectIotCloud(ctx context.Context, in *ConnectIotClo
 // for forward compatibility
 type RpcDeviceServer interface {
 	//设备连接云服务
-	ConnectIotCloud(context.Context, *ConnectIotCloudRequest) (*drivercommon.CommonResponse, error)
+	ConnectIotCloud(context.Context, *ConnectIotCloudRequest) (*edgexcommon.CommonResponse, error)
 	mustEmbedUnimplementedRpcDeviceServer()
 }
 
@@ -57,7 +57,7 @@ type RpcDeviceServer interface {
 type UnimplementedRpcDeviceServer struct {
 }
 
-func (UnimplementedRpcDeviceServer) ConnectIotCloud(context.Context, *ConnectIotCloudRequest) (*drivercommon.CommonResponse, error) {
+func (UnimplementedRpcDeviceServer) ConnectIotCloud(context.Context, *ConnectIotCloudRequest) (*edgexcommon.CommonResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConnectIotCloud not implemented")
 }
 func (UnimplementedRpcDeviceServer) mustEmbedUnimplementedRpcDeviceServer() {}
@@ -83,7 +83,7 @@ func _RpcDevice_ConnectIotCloud_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device.RpcDevice/ConnectIotCloud",
+		FullMethod: "/edgexdevice.RpcDevice/ConnectIotCloud",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RpcDeviceServer).ConnectIotCloud(ctx, req.(*ConnectIotCloudRequest))
@@ -95,7 +95,7 @@ func _RpcDevice_ConnectIotCloud_Handler(srv interface{}, ctx context.Context, de
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var RpcDevice_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "device.RpcDevice",
+	ServiceName: "edgexdevice.RpcDevice",
 	HandlerType: (*RpcDeviceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -104,5 +104,5 @@ var RpcDevice_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "device/device.proto",
+	Metadata: "edgexdevice/edgexdevice.proto",
 }

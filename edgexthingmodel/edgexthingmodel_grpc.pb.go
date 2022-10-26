@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.14.0
-// source: thingmodel/thingmodel.proto
+// source: edgexthingmodel/edgexthingmodel.proto
 
-package thingmodel
+package edgexthingmodel
 
 import (
 	context "context"
@@ -36,7 +36,7 @@ func NewThingModelUpServiceClient(cc grpc.ClientConnInterface) ThingModelUpServi
 
 func (c *thingModelUpServiceClient) ThingModelMsgReport(ctx context.Context, in *ThingModelMsg, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/thingmodel.ThingModelUpService/ThingModelMsgReport", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/edgexthingmodel.ThingModelUpService/ThingModelMsgReport", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +81,7 @@ func _ThingModelUpService_ThingModelMsgReport_Handler(srv interface{}, ctx conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/thingmodel.ThingModelUpService/ThingModelMsgReport",
+		FullMethod: "/edgexthingmodel.ThingModelUpService/ThingModelMsgReport",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ThingModelUpServiceServer).ThingModelMsgReport(ctx, req.(*ThingModelMsg))
@@ -93,7 +93,7 @@ func _ThingModelUpService_ThingModelMsgReport_Handler(srv interface{}, ctx conte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ThingModelUpService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "thingmodel.ThingModelUpService",
+	ServiceName: "edgexthingmodel.ThingModelUpService",
 	HandlerType: (*ThingModelUpServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -102,5 +102,5 @@ var ThingModelUpService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "thingmodel/thingmodel.proto",
+	Metadata: "edgexthingmodel/edgexthingmodel.proto",
 }

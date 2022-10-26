@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package thingmodel;
-option go_package = "github.com/winc-link/edgex-driver-proto/thingmodel";
+package edgexthingmodel;
+option go_package = "github.com/winc-link/edgex-driver-proto/edgexthingmodel";
 import "google/protobuf/empty.proto";
-import "drivercommon/drivercommon.proto";
+import "edgexcommon/edgexcommon.proto";
 
 
 enum ThingModelOperationType {
@@ -30,7 +30,7 @@ enum ThingModelOperationType {
 
 // 物模型
 message ThingModelMsg {
-  drivercommon.baseIotPlatformMessage baseIotPlatformMessage = 5;
+  edgexcommon.baseIotPlatformMessage baseIotPlatformMessage = 5;
   string cid = 1; // 下发的目标设备id
   ThingModelOperationType op_type = 2;
   string data = 3;
