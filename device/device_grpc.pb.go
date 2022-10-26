@@ -8,7 +8,7 @@ package device
 
 import (
 	context "context"
-	common "github.com/winc-link/edgex-driver-proto/common"
+	drivercommon "github.com/winc-link/edgex-driver-proto/drivercommon"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -24,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RpcDeviceClient interface {
 	//设备连接云服务
-	ConnectIotCloud(ctx context.Context, in *ConnectIotCloudRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
+	ConnectIotCloud(ctx context.Context, in *ConnectIotCloudRequest, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error)
 }
 
 type rpcDeviceClient struct {
@@ -35,8 +35,8 @@ func NewRpcDeviceClient(cc grpc.ClientConnInterface) RpcDeviceClient {
 	return &rpcDeviceClient{cc}
 }
 
-func (c *rpcDeviceClient) ConnectIotCloud(ctx context.Context, in *ConnectIotCloudRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
-	out := new(common.CommonResponse)
+func (c *rpcDeviceClient) ConnectIotCloud(ctx context.Context, in *ConnectIotCloudRequest, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error) {
+	out := new(drivercommon.CommonResponse)
 	err := c.cc.Invoke(ctx, "/device.RpcDevice/ConnectIotCloud", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -49,7 +49,7 @@ func (c *rpcDeviceClient) ConnectIotCloud(ctx context.Context, in *ConnectIotClo
 // for forward compatibility
 type RpcDeviceServer interface {
 	//设备连接云服务
-	ConnectIotCloud(context.Context, *ConnectIotCloudRequest) (*common.CommonResponse, error)
+	ConnectIotCloud(context.Context, *ConnectIotCloudRequest) (*drivercommon.CommonResponse, error)
 	mustEmbedUnimplementedRpcDeviceServer()
 }
 
@@ -57,7 +57,7 @@ type RpcDeviceServer interface {
 type UnimplementedRpcDeviceServer struct {
 }
 
-func (UnimplementedRpcDeviceServer) ConnectIotCloud(context.Context, *ConnectIotCloudRequest) (*common.CommonResponse, error) {
+func (UnimplementedRpcDeviceServer) ConnectIotCloud(context.Context, *ConnectIotCloudRequest) (*drivercommon.CommonResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConnectIotCloud not implemented")
 }
 func (UnimplementedRpcDeviceServer) mustEmbedUnimplementedRpcDeviceServer() {}
