@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package common;
+option go_package = "github.com/winc-link/edgex-driver-proto/common";
+
+enum IotPlatform {
+   CustomerIot = 0;//用户自定义
+   WinCLinkIot = 1; //赢创万联
+   AliIot = 2; //阿里
+   HuaweiIot = 3;//华为
+   TencentIot = 4;//腾讯
+   TuyaIot = 5;//涂鸦
+   OneNetIot = 6; //中国移动
+}
+
+message CloudInstanceInfo {
+   string cloudInstanceId = 2;
+   string baseAddress = 3;
+}
+
+message baseIotPlatformMessage {
+   bool useCloudPlatform = 1;
+   CloudInstanceInfo cloudInstanceInfo = 2;
+}
+
+
+
+message CommonResponse {
+   string RequestId = 1;
+   string errorMessage = 2;
+   string Code = 3;
+   bool Success = 4;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+package device;
+option go_package = "github.com/winc-link/edgex-driver-proto/device";
+import "common/common.proto";
+
+message ConnectIotCloudRequest {
+  string deviceId = 1;
+}
+
+service RpcDevice {
+  //设备连接云服务
+  rpc ConnectIotCloud(ConnectIotCloudRequest) returns (common.CommonResponse) {}
+}
