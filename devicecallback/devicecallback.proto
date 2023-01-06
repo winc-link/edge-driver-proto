@@ -1,0 +1,13 @@
+syntax = "proto3";
+package devicecallback;
+option go_package = "github.com/winc-link/edgex-driver-proto/devicecallback";
+import "device/device.proto";
+import "google/protobuf/empty.proto";
+
+
+
+service DeviceCallBackService {
+  rpc CreateDeviceCallback(device.CreateDeviceRequest) returns (google.protobuf.Empty) {}
+//  rpc UpdateDeviceCallback(device.DeviceUpdateInfo) returns (google.protobuf.Empty) {}
+  rpc DeleteDeviceCallback(device.DeleteDeviceRequest) returns (google.protobuf.Empty) {}
+}

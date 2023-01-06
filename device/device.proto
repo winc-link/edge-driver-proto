@@ -3,12 +3,76 @@ package device;
 option go_package = "github.com/winc-link/edgex-driver-proto/device";
 import "common/common.proto";
 
-message ConnectIotCloudRequest {
-  common.baseIotPlatformMessage baseIotPlatformMessage = 1;
-  string deviceId = 2;
+message ConnectIotPlatformRequest {
+  string deviceId = 1;
+}
+
+message DisconnectIotPlatformRequest {
+  string deviceId = 1;
+}
+
+message QueryDeviceByIdRequest {
+  string Id = 1;
+}
+
+
+message QueryDeviceByIdRequestResponse {
+  Device device = 1;
+}
+
+message Device {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string product_id = 4;
+  string online_status = 5;
+  string active_status = 6;
+  string cloud_device_id = 7;
+}
+
+message QueryDeviceListRequest {
+  string platform = 1;
+  string serviceId = 2;
+}
+
+message QueryDeviceListResponse {
+  uint32 total = 1;
+  repeated Device devices = 2;
+}
+
+message AddDevice {
+  string name = 1;
+  string product_id = 2;
+  string description = 3;
+}
+
+
+
+message CreateDeviceRequest {
+  AddDevice device = 1;
+}
+
+message CreateDeviceAndConnectRequest {
+  AddDevice device = 1;
+}
+
+message DeleteDeviceRequest {
+  string deviceId = 1;
 }
 
 service RpcDevice {
-  //设备连接云服务
-  rpc ConnectIotCloud(ConnectIotCloudRequest) returns (common.CommonResponse) {}
+  // 设备连接云服务
+  rpc ConnectIotPlatform(ConnectIotPlatformRequest) returns (common.CommonResponse) {}
+  // 设备断开连接云服务
+  rpc DisconnectIotPlatform(DisconnectIotPlatformRequest) returns (common.CommonResponse) {}
+  // 获取所有设备
+  rpc QueryDeviceList(QueryDeviceListRequest) returns (QueryDeviceListResponse) {}
+  // 获取设备
+  rpc QueryDeviceById(QueryDeviceByIdRequest) returns (QueryDeviceByIdRequestResponse) {}
+  // 创建设备
+  rpc CreateDevice(CreateDeviceRequest) returns (common.CommonResponse) {}
+  // 创建设备并且建立连接
+  rpc CreateDeviceAndConnect(CreateDeviceAndConnectRequest) returns (common.CommonResponse) {}
+  // 删除设备
+  rpc DeleteDevice(DeleteDeviceRequest) returns (common.CommonResponse) {}
 }

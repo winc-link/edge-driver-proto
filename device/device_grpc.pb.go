@@ -23,8 +23,18 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RpcDeviceClient interface {
-	//设备连接云服务
-	ConnectIotCloud(ctx context.Context, in *ConnectIotCloudRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
+	// 设备连接云服务
+	ConnectIotCloud(ctx context.Context, in *ConnectIotPlatformRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
+	// 设备断开连接云服务
+	DisconnectIotPlatform(ctx context.Context, in *DisconnectIotPlatformRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
+	// 获取所有设备
+	QueryDeviceList(ctx context.Context, in *QueryDeviceListRequest, opts ...grpc.CallOption) (*QueryDeviceListResponse, error)
+	// 创建设备
+	CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
+	// 创建设备并且建立连接
+	CreateDeviceAndConnect(ctx context.Context, in *CreateDeviceAndConnectRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
+	// 删除设备
+	DeleteDevice(ctx context.Context, in *DeleteDeviceRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
 }
 
 type rpcDeviceClient struct {
@@ -35,9 +45,54 @@ func NewRpcDeviceClient(cc grpc.ClientConnInterface) RpcDeviceClient {
 	return &rpcDeviceClient{cc}
 }
 
-func (c *rpcDeviceClient) ConnectIotCloud(ctx context.Context, in *ConnectIotCloudRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
+func (c *rpcDeviceClient) ConnectIotCloud(ctx context.Context, in *ConnectIotPlatformRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
 	out := new(common.CommonResponse)
 	err := c.cc.Invoke(ctx, "/device.RpcDevice/ConnectIotCloud", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rpcDeviceClient) DisconnectIotPlatform(ctx context.Context, in *DisconnectIotPlatformRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
+	out := new(common.CommonResponse)
+	err := c.cc.Invoke(ctx, "/device.RpcDevice/DisconnectIotPlatform", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rpcDeviceClient) QueryDeviceList(ctx context.Context, in *QueryDeviceListRequest, opts ...grpc.CallOption) (*QueryDeviceListResponse, error) {
+	out := new(QueryDeviceListResponse)
+	err := c.cc.Invoke(ctx, "/device.RpcDevice/QueryDeviceList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rpcDeviceClient) CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
+	out := new(common.CommonResponse)
+	err := c.cc.Invoke(ctx, "/device.RpcDevice/CreateDevice", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rpcDeviceClient) CreateDeviceAndConnect(ctx context.Context, in *CreateDeviceAndConnectRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
+	out := new(common.CommonResponse)
+	err := c.cc.Invoke(ctx, "/device.RpcDevice/CreateDeviceAndConnect", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rpcDeviceClient) DeleteDevice(ctx context.Context, in *DeleteDeviceRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
+	out := new(common.CommonResponse)
+	err := c.cc.Invoke(ctx, "/device.RpcDevice/DeleteDevice", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,8 +103,18 @@ func (c *rpcDeviceClient) ConnectIotCloud(ctx context.Context, in *ConnectIotClo
 // All implementations must embed UnimplementedRpcDeviceServer
 // for forward compatibility
 type RpcDeviceServer interface {
-	//设备连接云服务
-	ConnectIotCloud(context.Context, *ConnectIotCloudRequest) (*common.CommonResponse, error)
+	// 设备连接云服务
+	ConnectIotCloud(context.Context, *ConnectIotPlatformRequest) (*common.CommonResponse, error)
+	// 设备断开连接云服务
+	DisconnectIotPlatform(context.Context, *DisconnectIotPlatformRequest) (*common.CommonResponse, error)
+	// 获取所有设备
+	QueryDeviceList(context.Context, *QueryDeviceListRequest) (*QueryDeviceListResponse, error)
+	// 创建设备
+	CreateDevice(context.Context, *CreateDeviceRequest) (*common.CommonResponse, error)
+	// 创建设备并且建立连接
+	CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*common.CommonResponse, error)
+	// 删除设备
+	DeleteDevice(context.Context, *DeleteDeviceRequest) (*common.CommonResponse, error)
 	mustEmbedUnimplementedRpcDeviceServer()
 }
 
@@ -57,8 +122,23 @@ type RpcDeviceServer interface {
 type UnimplementedRpcDeviceServer struct {
 }
 
-func (UnimplementedRpcDeviceServer) ConnectIotCloud(context.Context, *ConnectIotCloudRequest) (*common.CommonResponse, error) {
+func (UnimplementedRpcDeviceServer) ConnectIotCloud(context.Context, *ConnectIotPlatformRequest) (*common.CommonResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConnectIotCloud not implemented")
+}
+func (UnimplementedRpcDeviceServer) DisconnectIotPlatform(context.Context, *DisconnectIotPlatformRequest) (*common.CommonResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DisconnectIotPlatform not implemented")
+}
+func (UnimplementedRpcDeviceServer) QueryDeviceList(context.Context, *QueryDeviceListRequest) (*QueryDeviceListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryDeviceList not implemented")
+}
+func (UnimplementedRpcDeviceServer) CreateDevice(context.Context, *CreateDeviceRequest) (*common.CommonResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDevice not implemented")
+}
+func (UnimplementedRpcDeviceServer) CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*common.CommonResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDeviceAndConnect not implemented")
+}
+func (UnimplementedRpcDeviceServer) DeleteDevice(context.Context, *DeleteDeviceRequest) (*common.CommonResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDevice not implemented")
 }
 func (UnimplementedRpcDeviceServer) mustEmbedUnimplementedRpcDeviceServer() {}
 
@@ -74,7 +154,7 @@ func RegisterRpcDeviceServer(s grpc.ServiceRegistrar, srv RpcDeviceServer) {
 }
 
 func _RpcDevice_ConnectIotCloud_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ConnectIotCloudRequest)
+	in := new(ConnectIotPlatformRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -86,7 +166,97 @@ func _RpcDevice_ConnectIotCloud_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/device.RpcDevice/ConnectIotCloud",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RpcDeviceServer).ConnectIotCloud(ctx, req.(*ConnectIotCloudRequest))
+		return srv.(RpcDeviceServer).ConnectIotCloud(ctx, req.(*ConnectIotPlatformRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RpcDevice_DisconnectIotPlatform_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DisconnectIotPlatformRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RpcDeviceServer).DisconnectIotPlatform(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/device.RpcDevice/DisconnectIotPlatform",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RpcDeviceServer).DisconnectIotPlatform(ctx, req.(*DisconnectIotPlatformRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RpcDevice_QueryDeviceList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDeviceListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RpcDeviceServer).QueryDeviceList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/device.RpcDevice/QueryDeviceList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RpcDeviceServer).QueryDeviceList(ctx, req.(*QueryDeviceListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RpcDevice_CreateDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDeviceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RpcDeviceServer).CreateDevice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/device.RpcDevice/CreateDevice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RpcDeviceServer).CreateDevice(ctx, req.(*CreateDeviceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RpcDevice_CreateDeviceAndConnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDeviceAndConnectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RpcDeviceServer).CreateDeviceAndConnect(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/device.RpcDevice/CreateDeviceAndConnect",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RpcDeviceServer).CreateDeviceAndConnect(ctx, req.(*CreateDeviceAndConnectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RpcDevice_DeleteDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteDeviceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RpcDeviceServer).DeleteDevice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/device.RpcDevice/DeleteDevice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RpcDeviceServer).DeleteDevice(ctx, req.(*DeleteDeviceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -101,6 +271,26 @@ var RpcDevice_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ConnectIotCloud",
 			Handler:    _RpcDevice_ConnectIotCloud_Handler,
+		},
+		{
+			MethodName: "DisconnectIotPlatform",
+			Handler:    _RpcDevice_DisconnectIotPlatform_Handler,
+		},
+		{
+			MethodName: "QueryDeviceList",
+			Handler:    _RpcDevice_QueryDeviceList_Handler,
+		},
+		{
+			MethodName: "CreateDevice",
+			Handler:    _RpcDevice_CreateDevice_Handler,
+		},
+		{
+			MethodName: "CreateDeviceAndConnect",
+			Handler:    _RpcDevice_CreateDeviceAndConnect_Handler,
+		},
+		{
+			MethodName: "DeleteDevice",
+			Handler:    _RpcDevice_DeleteDevice_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
