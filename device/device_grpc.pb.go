@@ -34,9 +34,9 @@ type RpcDeviceClient interface {
 	// 设备连接状态
 	GetDeviceConnectStatus(ctx context.Context, in *GetDeviceConnectStatusRequest, opts ...grpc.CallOption) (*GetDeviceConnectStatusResponse, error)
 	// 创建设备
-	CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
+	CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*CreateDeviceRequestResponse, error)
 	// 创建设备并且建立连接
-	CreateDeviceAndConnect(ctx context.Context, in *CreateDeviceAndConnectRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
+	CreateDeviceAndConnect(ctx context.Context, in *CreateDeviceAndConnectRequest, opts ...grpc.CallOption) (*CreateDeviceAndConnectRequestResponse, error)
 	// 删除设备
 	DeleteDevice(ctx context.Context, in *DeleteDeviceRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
 }
@@ -94,8 +94,8 @@ func (c *rpcDeviceClient) GetDeviceConnectStatus(ctx context.Context, in *GetDev
 	return out, nil
 }
 
-func (c *rpcDeviceClient) CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
-	out := new(common.CommonResponse)
+func (c *rpcDeviceClient) CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*CreateDeviceRequestResponse, error) {
+	out := new(CreateDeviceRequestResponse)
 	err := c.cc.Invoke(ctx, "/device.RpcDevice/CreateDevice", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -103,8 +103,8 @@ func (c *rpcDeviceClient) CreateDevice(ctx context.Context, in *CreateDeviceRequ
 	return out, nil
 }
 
-func (c *rpcDeviceClient) CreateDeviceAndConnect(ctx context.Context, in *CreateDeviceAndConnectRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
-	out := new(common.CommonResponse)
+func (c *rpcDeviceClient) CreateDeviceAndConnect(ctx context.Context, in *CreateDeviceAndConnectRequest, opts ...grpc.CallOption) (*CreateDeviceAndConnectRequestResponse, error) {
+	out := new(CreateDeviceAndConnectRequestResponse)
 	err := c.cc.Invoke(ctx, "/device.RpcDevice/CreateDeviceAndConnect", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -136,9 +136,9 @@ type RpcDeviceServer interface {
 	// 设备连接状态
 	GetDeviceConnectStatus(context.Context, *GetDeviceConnectStatusRequest) (*GetDeviceConnectStatusResponse, error)
 	// 创建设备
-	CreateDevice(context.Context, *CreateDeviceRequest) (*common.CommonResponse, error)
+	CreateDevice(context.Context, *CreateDeviceRequest) (*CreateDeviceRequestResponse, error)
 	// 创建设备并且建立连接
-	CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*common.CommonResponse, error)
+	CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*CreateDeviceAndConnectRequestResponse, error)
 	// 删除设备
 	DeleteDevice(context.Context, *DeleteDeviceRequest) (*common.CommonResponse, error)
 	mustEmbedUnimplementedRpcDeviceServer()
@@ -163,10 +163,10 @@ func (UnimplementedRpcDeviceServer) QueryDeviceById(context.Context, *QueryDevic
 func (UnimplementedRpcDeviceServer) GetDeviceConnectStatus(context.Context, *GetDeviceConnectStatusRequest) (*GetDeviceConnectStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDeviceConnectStatus not implemented")
 }
-func (UnimplementedRpcDeviceServer) CreateDevice(context.Context, *CreateDeviceRequest) (*common.CommonResponse, error) {
+func (UnimplementedRpcDeviceServer) CreateDevice(context.Context, *CreateDeviceRequest) (*CreateDeviceRequestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDevice not implemented")
 }
-func (UnimplementedRpcDeviceServer) CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*common.CommonResponse, error) {
+func (UnimplementedRpcDeviceServer) CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*CreateDeviceAndConnectRequestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDeviceAndConnect not implemented")
 }
 func (UnimplementedRpcDeviceServer) DeleteDevice(context.Context, *DeleteDeviceRequest) (*common.CommonResponse, error) {

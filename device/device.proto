@@ -61,13 +61,34 @@ message AddDevice {
 }
 
 
-
 message CreateDeviceRequest {
   AddDevice device = 1;
 }
 
+message CreateDeviceRequestResponse {
+  message Data {
+    Device devices = 2;
+  }
+  Data data = 1;
+  string RequestId = 2;
+  string Code = 3;
+  bool Success = 4;
+  string errorMessage = 5;
+}
+
 message CreateDeviceAndConnectRequest {
   AddDevice device = 1;
+}
+
+message CreateDeviceAndConnectRequestResponse {
+  message Data {
+    Device devices = 2;
+  }
+  Data data = 1;
+  string RequestId = 2;
+  string Code = 3;
+  bool Success = 4;
+  string errorMessage = 5;
 }
 
 message DeleteDeviceRequest {
@@ -108,9 +129,9 @@ service RpcDevice {
   // 设备连接状态
   rpc GetDeviceConnectStatus (GetDeviceConnectStatusRequest) returns(GetDeviceConnectStatusResponse){}
   // 创建设备
-  rpc CreateDevice(CreateDeviceRequest) returns (common.CommonResponse) {}
+  rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceRequestResponse) {}
   // 创建设备并且建立连接
-  rpc CreateDeviceAndConnect(CreateDeviceAndConnectRequest) returns (common.CommonResponse) {}
+  rpc CreateDeviceAndConnect(CreateDeviceAndConnectRequest) returns (CreateDeviceAndConnectRequestResponse) {}
   // 删除设备
   rpc DeleteDevice(DeleteDeviceRequest) returns (common.CommonResponse) {}
 }
