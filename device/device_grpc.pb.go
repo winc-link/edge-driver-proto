@@ -31,6 +31,8 @@ type RpcDeviceClient interface {
 	QueryDeviceList(ctx context.Context, in *QueryDeviceListRequest, opts ...grpc.CallOption) (*QueryDeviceListResponse, error)
 	// 获取设备
 	QueryDeviceById(ctx context.Context, in *QueryDeviceByIdRequest, opts ...grpc.CallOption) (*QueryDeviceByIdRequestResponse, error)
+	// 设备连接状态
+	GetDeviceConnectStatus(ctx context.Context, in *GetDeviceConnectStatusRequest, opts ...grpc.CallOption) (*GetDeviceConnectStatusResponse, error)
 	// 创建设备
 	CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
 	// 创建设备并且建立连接
@@ -83,6 +85,15 @@ func (c *rpcDeviceClient) QueryDeviceById(ctx context.Context, in *QueryDeviceBy
 	return out, nil
 }
 
+func (c *rpcDeviceClient) GetDeviceConnectStatus(ctx context.Context, in *GetDeviceConnectStatusRequest, opts ...grpc.CallOption) (*GetDeviceConnectStatusResponse, error) {
+	out := new(GetDeviceConnectStatusResponse)
+	err := c.cc.Invoke(ctx, "/device.RpcDevice/GetDeviceConnectStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *rpcDeviceClient) CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
 	out := new(common.CommonResponse)
 	err := c.cc.Invoke(ctx, "/device.RpcDevice/CreateDevice", in, out, opts...)
@@ -122,6 +133,8 @@ type RpcDeviceServer interface {
 	QueryDeviceList(context.Context, *QueryDeviceListRequest) (*QueryDeviceListResponse, error)
 	// 获取设备
 	QueryDeviceById(context.Context, *QueryDeviceByIdRequest) (*QueryDeviceByIdRequestResponse, error)
+	// 设备连接状态
+	GetDeviceConnectStatus(context.Context, *GetDeviceConnectStatusRequest) (*GetDeviceConnectStatusResponse, error)
 	// 创建设备
 	CreateDevice(context.Context, *CreateDeviceRequest) (*common.CommonResponse, error)
 	// 创建设备并且建立连接
@@ -146,6 +159,9 @@ func (UnimplementedRpcDeviceServer) QueryDeviceList(context.Context, *QueryDevic
 }
 func (UnimplementedRpcDeviceServer) QueryDeviceById(context.Context, *QueryDeviceByIdRequest) (*QueryDeviceByIdRequestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryDeviceById not implemented")
+}
+func (UnimplementedRpcDeviceServer) GetDeviceConnectStatus(context.Context, *GetDeviceConnectStatusRequest) (*GetDeviceConnectStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDeviceConnectStatus not implemented")
 }
 func (UnimplementedRpcDeviceServer) CreateDevice(context.Context, *CreateDeviceRequest) (*common.CommonResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDevice not implemented")
@@ -241,6 +257,24 @@ func _RpcDevice_QueryDeviceById_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RpcDevice_GetDeviceConnectStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDeviceConnectStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RpcDeviceServer).GetDeviceConnectStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/device.RpcDevice/GetDeviceConnectStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RpcDeviceServer).GetDeviceConnectStatus(ctx, req.(*GetDeviceConnectStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _RpcDevice_CreateDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateDeviceRequest)
 	if err := dec(in); err != nil {
@@ -317,6 +351,10 @@ var RpcDevice_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "QueryDeviceById",
 			Handler:    _RpcDevice_QueryDeviceById_Handler,
+		},
+		{
+			MethodName: "GetDeviceConnectStatus",
+			Handler:    _RpcDevice_GetDeviceConnectStatus_Handler,
 		},
 		{
 			MethodName: "CreateDevice",
