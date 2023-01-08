@@ -35,6 +35,7 @@ message Device {
   string online_status = 5;
   string active_status = 6;
   string cloud_device_id = 7;
+  common.IotPlatform  platform = 8;
 }
 
 message QueryDeviceListRequest {
