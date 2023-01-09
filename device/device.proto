@@ -7,6 +7,14 @@ message ConnectIotPlatformRequest {
   string deviceId = 1;
 }
 
+message ConnectIotPlatformResponse {
+  common.CommonResponse baseResponse = 1;
+  message Data {
+    ConnectStatus Status = 1;
+  }
+  Data data = 2;
+}
+
 message DisconnectIotPlatformRequest {
   string deviceId = 1;
 }
