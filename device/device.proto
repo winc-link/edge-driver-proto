@@ -108,7 +108,6 @@ enum ConnectStatus {
 message GetDeviceConnectStatusResponse {
   message Data {
     ConnectStatus Status = 1;
-    uint64 Timestamp = 2;
   }
 
   Data data = 1;

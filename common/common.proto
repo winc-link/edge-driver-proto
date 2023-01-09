@@ -28,6 +28,6 @@ message baseIotPlatformMessage {
 message CommonResponse {
    string RequestId = 1;
    string errorMessage = 2;
-   string Code = 3;
+   uint32 Code = 3;
    bool Success = 4;
 }
