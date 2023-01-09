@@ -1,6 +1,6 @@
 syntax = "proto3";
 package device;
-option go_package = "github.com/winc-link/edgex-driver-proto/device";
+option go_package = "github.com/winc-link/edge-driver-proto/device";
 import "common/common.proto";
 
 message ConnectIotPlatformRequest {

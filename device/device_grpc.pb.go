@@ -8,7 +8,7 @@ package device
 
 import (
 	context "context"
-	common "github.com/winc-link/edgex-driver-proto/common"
+	common "github.com/winc-link/edge-driver-proto/common"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"

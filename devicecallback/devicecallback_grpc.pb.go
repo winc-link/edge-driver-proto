@@ -8,7 +8,7 @@ package devicecallback
 
 import (
 	context "context"
-	device "github.com/winc-link/edgex-driver-proto/device"
+	device "github.com/winc-link/edge-driver-proto/device"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
