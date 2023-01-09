@@ -127,7 +127,7 @@ message GetDeviceConnectStatusResponse {
 
 service RpcDevice {
   // 设备连接云服务
-  rpc ConnectIotPlatform(ConnectIotPlatformRequest) returns (common.CommonResponse) {}
+  rpc ConnectIotPlatform(ConnectIotPlatformRequest) returns (ConnectIotPlatformResponse) {}
   // 设备断开连接云服务
   rpc DisconnectIotPlatform(DisconnectIotPlatformRequest) returns (common.CommonResponse) {}
   // 获取所有设备

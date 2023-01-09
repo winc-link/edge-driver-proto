@@ -24,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RpcDeviceClient interface {
 	// 设备连接云服务
-	ConnectIotPlatform(ctx context.Context, in *ConnectIotPlatformRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
+	ConnectIotPlatform(ctx context.Context, in *ConnectIotPlatformRequest, opts ...grpc.CallOption) (*ConnectIotPlatformResponse, error)
 	// 设备断开连接云服务
 	DisconnectIotPlatform(ctx context.Context, in *DisconnectIotPlatformRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
 	// 获取所有设备
@@ -49,8 +49,8 @@ func NewRpcDeviceClient(cc grpc.ClientConnInterface) RpcDeviceClient {
 	return &rpcDeviceClient{cc}
 }
 
-func (c *rpcDeviceClient) ConnectIotPlatform(ctx context.Context, in *ConnectIotPlatformRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
-	out := new(common.CommonResponse)
+func (c *rpcDeviceClient) ConnectIotPlatform(ctx context.Context, in *ConnectIotPlatformRequest, opts ...grpc.CallOption) (*ConnectIotPlatformResponse, error) {
+	out := new(ConnectIotPlatformResponse)
 	err := c.cc.Invoke(ctx, "/device.RpcDevice/ConnectIotPlatform", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -126,7 +126,7 @@ func (c *rpcDeviceClient) DeleteDevice(ctx context.Context, in *DeleteDeviceRequ
 // for forward compatibility
 type RpcDeviceServer interface {
 	// 设备连接云服务
-	ConnectIotPlatform(context.Context, *ConnectIotPlatformRequest) (*common.CommonResponse, error)
+	ConnectIotPlatform(context.Context, *ConnectIotPlatformRequest) (*ConnectIotPlatformResponse, error)
 	// 设备断开连接云服务
 	DisconnectIotPlatform(context.Context, *DisconnectIotPlatformRequest) (*common.CommonResponse, error)
 	// 获取所有设备
@@ -148,7 +148,7 @@ type RpcDeviceServer interface {
 type UnimplementedRpcDeviceServer struct {
 }
 
-func (UnimplementedRpcDeviceServer) ConnectIotPlatform(context.Context, *ConnectIotPlatformRequest) (*common.CommonResponse, error) {
+func (UnimplementedRpcDeviceServer) ConnectIotPlatform(context.Context, *ConnectIotPlatformRequest) (*ConnectIotPlatformResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConnectIotPlatform not implemented")
 }
 func (UnimplementedRpcDeviceServer) DisconnectIotPlatform(context.Context, *DisconnectIotPlatformRequest) (*common.CommonResponse, error) {
