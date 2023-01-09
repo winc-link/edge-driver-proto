@@ -19,6 +19,15 @@ message DisconnectIotPlatformRequest {
   string deviceId = 1;
 }
 
+
+message DisconnectIotPlatformResponse {
+  common.CommonResponse baseResponse = 1;
+  message Data {
+    ConnectStatus Status = 1;
+  }
+  Data data = 2;
+}
+
 message QueryDeviceByIdRequest {
   string Id = 1;
 }
@@ -118,24 +127,21 @@ message GetDeviceConnectStatusResponse {
     ConnectStatus Status = 1;
   }
 
-  Data data = 1;
-  string RequestId = 2;
-  string Code = 3;
-  bool Success = 4;
-  string errorMessage = 5;
+  Data data = 2;
+  common.CommonResponse baseResponse = 1;
 }
 
 service RpcDevice {
   // 设备连接云服务
   rpc ConnectIotPlatform(ConnectIotPlatformRequest) returns (ConnectIotPlatformResponse) {}
   // 设备断开连接云服务
-  rpc DisconnectIotPlatform(DisconnectIotPlatformRequest) returns (common.CommonResponse) {}
+  rpc DisconnectIotPlatform(DisconnectIotPlatformRequest) returns (DisconnectIotPlatformResponse) {}
+  // 设备连接状态
+  rpc GetDeviceConnectStatus (GetDeviceConnectStatusRequest) returns(GetDeviceConnectStatusResponse){}
   // 获取所有设备
   rpc QueryDeviceList(QueryDeviceListRequest) returns (QueryDeviceListResponse) {}
   // 获取设备
   rpc QueryDeviceById(QueryDeviceByIdRequest) returns (QueryDeviceByIdRequestResponse) {}
-  // 设备连接状态
-  rpc GetDeviceConnectStatus (GetDeviceConnectStatusRequest) returns(GetDeviceConnectStatusResponse){}
   // 创建设备
   rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceRequestResponse) {}
   // 创建设备并且建立连接
