@@ -51,7 +51,6 @@ message Device {
   string product_id = 4;
   string online_status = 5;
   string active_status = 6;
-  string cloud_device_id = 7;
   drivercommon.IotPlatform  platform = 8;
 }
 

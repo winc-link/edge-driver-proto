@@ -4,13 +4,14 @@ package drivercommon;
 option go_package = "github.com/winc-link/edge-driver-proto/drivercommon";
 
 enum IotPlatform {
-   CustomerIot = 0;//用户自定义
-   WinCLinkIot = 1; //赢创万联
-   AliIot = 2; //阿里
-   HuaweiIot = 3;//华为
-   TencentIot = 4;//腾讯
-   TuyaIot = 5;//涂鸦
-   OneNetIot = 6; //中国移动
+   LocalIot = 0;//本地
+   CustomerIot = 1;//用户自定义
+   WinCLinkIot = 2; //赢创万联
+   AliIot = 3; //阿里
+   HuaweiIot = 4;//华为
+   TencentIot = 5;//腾讯
+   TuyaIot = 6;//涂鸦
+   OneNetIot = 7; //中国移动
 }
 
 message CloudInstanceInfo {
