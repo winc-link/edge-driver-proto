@@ -44,14 +44,21 @@ message QueryDeviceByIdRequestResponse {
   string errorMessage = 5;
 }
 
+enum DeviceStatus {
+  UnKnowStatus = 0;
+  OnLine = 1;
+  OffLine = 2;
+  UnActive = 3;
+  Disable = 4;
+}
+
 message Device {
   string id = 1;
   string name = 2;
   string description = 3;
   string product_id = 4;
-  string online_status = 5;
-  string active_status = 6;
-  drivercommon.IotPlatform  platform = 8;
+  DeviceStatus status = 5;
+  drivercommon.IotPlatform platform = 6;
 }
 
 message QueryDeviceListRequest {
