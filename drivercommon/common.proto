@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package common;
-option go_package = "github.com/winc-link/edge-driver-proto/common";
+package drivercommon;
+option go_package = "github.com/winc-link/edge-driver-proto/drivercommon";
 
 enum IotPlatform {
    CustomerIot = 0;//用户自定义

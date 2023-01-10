@@ -1,14 +1,14 @@
 syntax = "proto3";
-package device;
-option go_package = "github.com/winc-link/edge-driver-proto/device";
-import "common/common.proto";
+package driverdevice;
+option go_package = "github.com/winc-link/edge-driver-proto/driverdevice";
+import "drivercommon/common.proto";
 
 message ConnectIotPlatformRequest {
   string deviceId = 1;
 }
 
 message ConnectIotPlatformResponse {
-  common.CommonResponse baseResponse = 1;
+  drivercommon.CommonResponse baseResponse = 1;
   message Data {
     ConnectStatus Status = 1;
   }
@@ -21,7 +21,7 @@ message DisconnectIotPlatformRequest {
 
 
 message DisconnectIotPlatformResponse {
-  common.CommonResponse baseResponse = 1;
+  drivercommon.CommonResponse baseResponse = 1;
   message Data {
     ConnectStatus Status = 1;
   }
@@ -52,7 +52,7 @@ message Device {
   string online_status = 5;
   string active_status = 6;
   string cloud_device_id = 7;
-  common.IotPlatform  platform = 8;
+  drivercommon.IotPlatform  platform = 8;
 }
 
 message QueryDeviceListRequest {
@@ -128,7 +128,7 @@ message GetDeviceConnectStatusResponse {
   }
 
   Data data = 2;
-  common.CommonResponse baseResponse = 1;
+  drivercommon.CommonResponse baseResponse = 1;
 }
 
 service RpcDevice {
@@ -147,5 +147,5 @@ service RpcDevice {
   // 创建设备并且建立连接
   rpc CreateDeviceAndConnect(CreateDeviceAndConnectRequest) returns (CreateDeviceAndConnectRequestResponse) {}
   // 删除设备
-  rpc DeleteDevice(DeleteDeviceRequest) returns (common.CommonResponse) {}
+  rpc DeleteDevice(DeleteDeviceRequest) returns (drivercommon.CommonResponse) {}
 }

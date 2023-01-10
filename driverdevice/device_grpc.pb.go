@@ -2,13 +2,13 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.14.0
-// source: device/device.proto
+// source: driverdevice/device.proto
 
-package device
+package driverdevice
 
 import (
 	context "context"
-	common "github.com/winc-link/edge-driver-proto/common"
+	drivercommon "github.com/winc-link/edge-driver-proto/drivercommon"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -38,7 +38,7 @@ type RpcDeviceClient interface {
 	// 创建设备并且建立连接
 	CreateDeviceAndConnect(ctx context.Context, in *CreateDeviceAndConnectRequest, opts ...grpc.CallOption) (*CreateDeviceAndConnectRequestResponse, error)
 	// 删除设备
-	DeleteDevice(ctx context.Context, in *DeleteDeviceRequest, opts ...grpc.CallOption) (*common.CommonResponse, error)
+	DeleteDevice(ctx context.Context, in *DeleteDeviceRequest, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error)
 }
 
 type rpcDeviceClient struct {
@@ -51,7 +51,7 @@ func NewRpcDeviceClient(cc grpc.ClientConnInterface) RpcDeviceClient {
 
 func (c *rpcDeviceClient) ConnectIotPlatform(ctx context.Context, in *ConnectIotPlatformRequest, opts ...grpc.CallOption) (*ConnectIotPlatformResponse, error) {
 	out := new(ConnectIotPlatformResponse)
-	err := c.cc.Invoke(ctx, "/device.RpcDevice/ConnectIotPlatform", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/driverdevice.RpcDevice/ConnectIotPlatform", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -60,7 +60,7 @@ func (c *rpcDeviceClient) ConnectIotPlatform(ctx context.Context, in *ConnectIot
 
 func (c *rpcDeviceClient) DisconnectIotPlatform(ctx context.Context, in *DisconnectIotPlatformRequest, opts ...grpc.CallOption) (*DisconnectIotPlatformResponse, error) {
 	out := new(DisconnectIotPlatformResponse)
-	err := c.cc.Invoke(ctx, "/device.RpcDevice/DisconnectIotPlatform", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/driverdevice.RpcDevice/DisconnectIotPlatform", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,7 +69,7 @@ func (c *rpcDeviceClient) DisconnectIotPlatform(ctx context.Context, in *Disconn
 
 func (c *rpcDeviceClient) GetDeviceConnectStatus(ctx context.Context, in *GetDeviceConnectStatusRequest, opts ...grpc.CallOption) (*GetDeviceConnectStatusResponse, error) {
 	out := new(GetDeviceConnectStatusResponse)
-	err := c.cc.Invoke(ctx, "/device.RpcDevice/GetDeviceConnectStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/driverdevice.RpcDevice/GetDeviceConnectStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *rpcDeviceClient) GetDeviceConnectStatus(ctx context.Context, in *GetDev
 
 func (c *rpcDeviceClient) QueryDeviceList(ctx context.Context, in *QueryDeviceListRequest, opts ...grpc.CallOption) (*QueryDeviceListResponse, error) {
 	out := new(QueryDeviceListResponse)
-	err := c.cc.Invoke(ctx, "/device.RpcDevice/QueryDeviceList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/driverdevice.RpcDevice/QueryDeviceList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *rpcDeviceClient) QueryDeviceList(ctx context.Context, in *QueryDeviceLi
 
 func (c *rpcDeviceClient) QueryDeviceById(ctx context.Context, in *QueryDeviceByIdRequest, opts ...grpc.CallOption) (*QueryDeviceByIdRequestResponse, error) {
 	out := new(QueryDeviceByIdRequestResponse)
-	err := c.cc.Invoke(ctx, "/device.RpcDevice/QueryDeviceById", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/driverdevice.RpcDevice/QueryDeviceById", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func (c *rpcDeviceClient) QueryDeviceById(ctx context.Context, in *QueryDeviceBy
 
 func (c *rpcDeviceClient) CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*CreateDeviceRequestResponse, error) {
 	out := new(CreateDeviceRequestResponse)
-	err := c.cc.Invoke(ctx, "/device.RpcDevice/CreateDevice", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/driverdevice.RpcDevice/CreateDevice", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -105,16 +105,16 @@ func (c *rpcDeviceClient) CreateDevice(ctx context.Context, in *CreateDeviceRequ
 
 func (c *rpcDeviceClient) CreateDeviceAndConnect(ctx context.Context, in *CreateDeviceAndConnectRequest, opts ...grpc.CallOption) (*CreateDeviceAndConnectRequestResponse, error) {
 	out := new(CreateDeviceAndConnectRequestResponse)
-	err := c.cc.Invoke(ctx, "/device.RpcDevice/CreateDeviceAndConnect", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/driverdevice.RpcDevice/CreateDeviceAndConnect", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *rpcDeviceClient) DeleteDevice(ctx context.Context, in *DeleteDeviceRequest, opts ...grpc.CallOption) (*common.CommonResponse, error) {
-	out := new(common.CommonResponse)
-	err := c.cc.Invoke(ctx, "/device.RpcDevice/DeleteDevice", in, out, opts...)
+func (c *rpcDeviceClient) DeleteDevice(ctx context.Context, in *DeleteDeviceRequest, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error) {
+	out := new(drivercommon.CommonResponse)
+	err := c.cc.Invoke(ctx, "/driverdevice.RpcDevice/DeleteDevice", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -140,7 +140,7 @@ type RpcDeviceServer interface {
 	// 创建设备并且建立连接
 	CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*CreateDeviceAndConnectRequestResponse, error)
 	// 删除设备
-	DeleteDevice(context.Context, *DeleteDeviceRequest) (*common.CommonResponse, error)
+	DeleteDevice(context.Context, *DeleteDeviceRequest) (*drivercommon.CommonResponse, error)
 	mustEmbedUnimplementedRpcDeviceServer()
 }
 
@@ -169,7 +169,7 @@ func (UnimplementedRpcDeviceServer) CreateDevice(context.Context, *CreateDeviceR
 func (UnimplementedRpcDeviceServer) CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*CreateDeviceAndConnectRequestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDeviceAndConnect not implemented")
 }
-func (UnimplementedRpcDeviceServer) DeleteDevice(context.Context, *DeleteDeviceRequest) (*common.CommonResponse, error) {
+func (UnimplementedRpcDeviceServer) DeleteDevice(context.Context, *DeleteDeviceRequest) (*drivercommon.CommonResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDevice not implemented")
 }
 func (UnimplementedRpcDeviceServer) mustEmbedUnimplementedRpcDeviceServer() {}
@@ -195,7 +195,7 @@ func _RpcDevice_ConnectIotPlatform_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device.RpcDevice/ConnectIotPlatform",
+		FullMethod: "/driverdevice.RpcDevice/ConnectIotPlatform",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RpcDeviceServer).ConnectIotPlatform(ctx, req.(*ConnectIotPlatformRequest))
@@ -213,7 +213,7 @@ func _RpcDevice_DisconnectIotPlatform_Handler(srv interface{}, ctx context.Conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device.RpcDevice/DisconnectIotPlatform",
+		FullMethod: "/driverdevice.RpcDevice/DisconnectIotPlatform",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RpcDeviceServer).DisconnectIotPlatform(ctx, req.(*DisconnectIotPlatformRequest))
@@ -231,7 +231,7 @@ func _RpcDevice_GetDeviceConnectStatus_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device.RpcDevice/GetDeviceConnectStatus",
+		FullMethod: "/driverdevice.RpcDevice/GetDeviceConnectStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RpcDeviceServer).GetDeviceConnectStatus(ctx, req.(*GetDeviceConnectStatusRequest))
@@ -249,7 +249,7 @@ func _RpcDevice_QueryDeviceList_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device.RpcDevice/QueryDeviceList",
+		FullMethod: "/driverdevice.RpcDevice/QueryDeviceList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RpcDeviceServer).QueryDeviceList(ctx, req.(*QueryDeviceListRequest))
@@ -267,7 +267,7 @@ func _RpcDevice_QueryDeviceById_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device.RpcDevice/QueryDeviceById",
+		FullMethod: "/driverdevice.RpcDevice/QueryDeviceById",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RpcDeviceServer).QueryDeviceById(ctx, req.(*QueryDeviceByIdRequest))
@@ -285,7 +285,7 @@ func _RpcDevice_CreateDevice_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device.RpcDevice/CreateDevice",
+		FullMethod: "/driverdevice.RpcDevice/CreateDevice",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RpcDeviceServer).CreateDevice(ctx, req.(*CreateDeviceRequest))
@@ -303,7 +303,7 @@ func _RpcDevice_CreateDeviceAndConnect_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device.RpcDevice/CreateDeviceAndConnect",
+		FullMethod: "/driverdevice.RpcDevice/CreateDeviceAndConnect",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RpcDeviceServer).CreateDeviceAndConnect(ctx, req.(*CreateDeviceAndConnectRequest))
@@ -321,7 +321,7 @@ func _RpcDevice_DeleteDevice_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device.RpcDevice/DeleteDevice",
+		FullMethod: "/driverdevice.RpcDevice/DeleteDevice",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RpcDeviceServer).DeleteDevice(ctx, req.(*DeleteDeviceRequest))
@@ -333,7 +333,7 @@ func _RpcDevice_DeleteDevice_Handler(srv interface{}, ctx context.Context, dec f
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var RpcDevice_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "device.RpcDevice",
+	ServiceName: "driverdevice.RpcDevice",
 	HandlerType: (*RpcDeviceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -370,5 +370,5 @@ var RpcDevice_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "device/device.proto",
+	Metadata: "driverdevice/device.proto",
 }
