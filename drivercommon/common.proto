@@ -23,6 +23,7 @@ message CloudInstanceInfo {
 message BaseRequestMessage {
    bool useCloudPlatform = 1;
    CloudInstanceInfo cloudInstanceInfo = 2;
+   string driverInstanceId = 3;
 }
 
 
