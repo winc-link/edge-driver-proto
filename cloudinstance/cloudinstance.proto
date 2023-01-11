@@ -17,7 +17,6 @@ message QueryCloudInstanceByPlatformResponse {
   string CloudInstanceId = 1;
   string Address = 2;
   CloudInstanceStatus status = 3;
-  drivercommon.IotPlatform iotPlatform = 4;
 }
 
 service CloudInstanceService {

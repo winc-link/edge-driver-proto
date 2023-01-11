@@ -17,6 +17,7 @@ enum IotPlatform {
 message CloudInstanceInfo {
    string cloudInstanceId = 2;
    string baseAddress = 3;
+   drivercommon.IotPlatform iotPlatform = 4;
 }
 
 message BaseRequestMessage {
