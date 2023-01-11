@@ -31,6 +31,6 @@ message BaseRequestMessage {
 message CommonResponse {
    string RequestId = 1;
    string errorMessage = 2;
-   uint32 Code = 3;
+   string Code = 3;
    bool Success = 4;
 }
