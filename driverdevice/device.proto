@@ -4,7 +4,8 @@ option go_package = "github.com/winc-link/edge-driver-proto/driverdevice";
 import "drivercommon/common.proto";
 
 message ConnectIotPlatformRequest {
-  string deviceId = 1;
+  drivercommon.BaseRequestMessage baseRequest = 1;
+  string deviceId = 2;
 }
 
 message ConnectIotPlatformResponse {
@@ -16,7 +17,8 @@ message ConnectIotPlatformResponse {
 }
 
 message DisconnectIotPlatformRequest {
-  string deviceId = 1;
+  drivercommon.BaseRequestMessage baseRequest = 1;
+  string deviceId = 2;
 }
 
 
@@ -86,18 +88,16 @@ message AddDevice {
 
 
 message CreateDeviceRequest {
-  AddDevice device = 1;
+  drivercommon.BaseRequestMessage baseRequest = 1;
+  AddDevice device = 2;
 }
 
 message CreateDeviceRequestResponse {
   message Data {
     Device devices = 2;
   }
-  Data data = 1;
-  string RequestId = 2;
-  string Code = 3;
-  bool Success = 4;
-  string errorMessage = 5;
+  Data data = 2;
+  drivercommon.CommonResponse baseResponse = 1;
 }
 
 message CreateDeviceAndConnectRequest {
@@ -116,7 +116,12 @@ message CreateDeviceAndConnectRequestResponse {
 }
 
 message DeleteDeviceRequest {
-  string deviceId = 1;
+  drivercommon.BaseRequestMessage baseRequest = 1;
+  string deviceId = 2;
+}
+
+message DeleteDeviceResponse {
+  drivercommon.CommonResponse baseResponse = 1;
 }
 
 message GetDeviceConnectStatusRequest {
@@ -153,5 +158,5 @@ service RpcDevice {
   // 创建设备并且建立连接
   rpc CreateDeviceAndConnect(CreateDeviceAndConnectRequest) returns (CreateDeviceAndConnectRequestResponse) {}
   // 删除设备
-  rpc DeleteDevice(DeleteDeviceRequest) returns (drivercommon.CommonResponse) {}
+  rpc DeleteDevice(DeleteDeviceRequest) returns (DeleteDeviceResponse) {}
 }

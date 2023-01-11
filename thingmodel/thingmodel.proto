@@ -30,7 +30,7 @@ enum ThingModelOperationType {
 
 // 物模型
 message ThingModelMsg {
-  drivercommon.baseIotPlatformMessage baseIotPlatformMessage = 5;
+  drivercommon.BaseRequestMessage baseRequest = 5;
   string cid = 1; // 下发的目标设备id
   ThingModelOperationType op_type = 2;
   string data = 3;

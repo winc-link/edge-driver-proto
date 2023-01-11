@@ -19,7 +19,7 @@ message CloudInstanceInfo {
    string baseAddress = 3;
 }
 
-message baseIotPlatformMessage {
+message BaseRequestMessage {
    bool useCloudPlatform = 1;
    CloudInstanceInfo cloudInstanceInfo = 2;
 }

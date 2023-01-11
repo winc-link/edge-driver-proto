@@ -8,7 +8,6 @@ package driverdevice
 
 import (
 	context "context"
-	drivercommon "github.com/winc-link/edge-driver-proto/drivercommon"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -38,7 +37,7 @@ type RpcDeviceClient interface {
 	// 创建设备并且建立连接
 	CreateDeviceAndConnect(ctx context.Context, in *CreateDeviceAndConnectRequest, opts ...grpc.CallOption) (*CreateDeviceAndConnectRequestResponse, error)
 	// 删除设备
-	DeleteDevice(ctx context.Context, in *DeleteDeviceRequest, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error)
+	DeleteDevice(ctx context.Context, in *DeleteDeviceRequest, opts ...grpc.CallOption) (*DeleteDeviceResponse, error)
 }
 
 type rpcDeviceClient struct {
@@ -112,8 +111,8 @@ func (c *rpcDeviceClient) CreateDeviceAndConnect(ctx context.Context, in *Create
 	return out, nil
 }
 
-func (c *rpcDeviceClient) DeleteDevice(ctx context.Context, in *DeleteDeviceRequest, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error) {
-	out := new(drivercommon.CommonResponse)
+func (c *rpcDeviceClient) DeleteDevice(ctx context.Context, in *DeleteDeviceRequest, opts ...grpc.CallOption) (*DeleteDeviceResponse, error) {
+	out := new(DeleteDeviceResponse)
 	err := c.cc.Invoke(ctx, "/driverdevice.RpcDevice/DeleteDevice", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -140,7 +139,7 @@ type RpcDeviceServer interface {
 	// 创建设备并且建立连接
 	CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*CreateDeviceAndConnectRequestResponse, error)
 	// 删除设备
-	DeleteDevice(context.Context, *DeleteDeviceRequest) (*drivercommon.CommonResponse, error)
+	DeleteDevice(context.Context, *DeleteDeviceRequest) (*DeleteDeviceResponse, error)
 	mustEmbedUnimplementedRpcDeviceServer()
 }
 
@@ -169,7 +168,7 @@ func (UnimplementedRpcDeviceServer) CreateDevice(context.Context, *CreateDeviceR
 func (UnimplementedRpcDeviceServer) CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*CreateDeviceAndConnectRequestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDeviceAndConnect not implemented")
 }
-func (UnimplementedRpcDeviceServer) DeleteDevice(context.Context, *DeleteDeviceRequest) (*drivercommon.CommonResponse, error) {
+func (UnimplementedRpcDeviceServer) DeleteDevice(context.Context, *DeleteDeviceRequest) (*DeleteDeviceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDevice not implemented")
 }
 func (UnimplementedRpcDeviceServer) mustEmbedUnimplementedRpcDeviceServer() {}

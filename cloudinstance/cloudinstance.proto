@@ -1,0 +1,25 @@
+syntax = "proto3";
+package cloudinstance;
+option go_package = "github.com/winc-link/edge-driver-proto/cloudinstance";
+import "drivercommon/common.proto";
+
+message QueryCloudInstanceByPlatformRequest {
+  drivercommon.IotPlatform iotPlatform = 1;
+}
+
+enum CloudInstanceStatus {
+  Stop = 0;
+  Start = 1;
+  Error = 2;
+}
+
+message QueryCloudInstanceByPlatformResponse {
+  string CloudInstanceId = 1;
+  string Address = 2;
+  CloudInstanceStatus status = 3;
+}
+
+service CloudInstanceService {
+  // 查询云服务示例信息
+  rpc QueryCloudInstanceByPlatform(QueryCloudInstanceByPlatformRequest) returns (QueryCloudInstanceByPlatformResponse) {}
+}
