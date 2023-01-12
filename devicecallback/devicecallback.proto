@@ -5,9 +5,26 @@ import "driverdevice/device.proto";
 import "google/protobuf/empty.proto";
 
 
+message createDeviceCallbackRequest {
+  driverdevice.Device Data = 1;
+  uint64 happenTime = 2;
+}
+
+message updateDeviceCallbackRequest {
+  driverdevice.Device Data = 1;
+  uint64 happenTime = 2;
+}
+
+message deleteDeviceCallbackRequest {
+  string deviceId  =1;
+  uint64 happenTime = 2;
+}
 
 service DeviceCallBackService {
-  rpc CreateDeviceCallback(driverdevice.CreateDeviceRequest) returns (google.protobuf.Empty) {}
-//  rpc UpdateDeviceCallback(driverdevice.DeviceUpdateInfo) returns (google.protobuf.Empty) {}
-  rpc DeleteDeviceCallback(driverdevice.DeleteDeviceRequest) returns (google.protobuf.Empty) {}
+  // 创建设备回调
+  rpc CreateDeviceCallback(createDeviceCallbackRequest) returns (google.protobuf.Empty) {}
+  // 更新设备回调
+  rpc UpdateDeviceCallback(updateDeviceCallbackRequest) returns (google.protobuf.Empty) {}
+  // 删除设备回调
+  rpc DeleteDeviceCallback(deleteDeviceCallbackRequest) returns (google.protobuf.Empty) {}
 }

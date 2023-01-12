@@ -8,7 +8,6 @@ package devicecallback
 
 import (
 	context "context"
-	driverdevice "github.com/winc-link/edge-driver-proto/driverdevice"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -24,9 +23,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DeviceCallBackServiceClient interface {
-	CreateDeviceCallback(ctx context.Context, in *driverdevice.CreateDeviceRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	//  rpc UpdateDeviceCallback(driverdevice.DeviceUpdateInfo) returns (google.protobuf.Empty) {}
-	DeleteDeviceCallback(ctx context.Context, in *driverdevice.DeleteDeviceRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// 创建设备回调
+	CreateDeviceCallback(ctx context.Context, in *CreateDeviceCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// 更新设备回调
+	UpdateDeviceCallback(ctx context.Context, in *UpdateDeviceCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// 删除设备回调
+	DeleteDeviceCallback(ctx context.Context, in *DeleteDeviceCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type deviceCallBackServiceClient struct {
@@ -37,7 +39,7 @@ func NewDeviceCallBackServiceClient(cc grpc.ClientConnInterface) DeviceCallBackS
 	return &deviceCallBackServiceClient{cc}
 }
 
-func (c *deviceCallBackServiceClient) CreateDeviceCallback(ctx context.Context, in *driverdevice.CreateDeviceRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *deviceCallBackServiceClient) CreateDeviceCallback(ctx context.Context, in *CreateDeviceCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/devicecallback.DeviceCallBackService/CreateDeviceCallback", in, out, opts...)
 	if err != nil {
@@ -46,7 +48,16 @@ func (c *deviceCallBackServiceClient) CreateDeviceCallback(ctx context.Context, 
 	return out, nil
 }
 
-func (c *deviceCallBackServiceClient) DeleteDeviceCallback(ctx context.Context, in *driverdevice.DeleteDeviceRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *deviceCallBackServiceClient) UpdateDeviceCallback(ctx context.Context, in *UpdateDeviceCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/devicecallback.DeviceCallBackService/UpdateDeviceCallback", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *deviceCallBackServiceClient) DeleteDeviceCallback(ctx context.Context, in *DeleteDeviceCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/devicecallback.DeviceCallBackService/DeleteDeviceCallback", in, out, opts...)
 	if err != nil {
@@ -59,9 +70,12 @@ func (c *deviceCallBackServiceClient) DeleteDeviceCallback(ctx context.Context, 
 // All implementations must embed UnimplementedDeviceCallBackServiceServer
 // for forward compatibility
 type DeviceCallBackServiceServer interface {
-	CreateDeviceCallback(context.Context, *driverdevice.CreateDeviceRequest) (*emptypb.Empty, error)
-	//  rpc UpdateDeviceCallback(driverdevice.DeviceUpdateInfo) returns (google.protobuf.Empty) {}
-	DeleteDeviceCallback(context.Context, *driverdevice.DeleteDeviceRequest) (*emptypb.Empty, error)
+	// 创建设备回调
+	CreateDeviceCallback(context.Context, *CreateDeviceCallbackRequest) (*emptypb.Empty, error)
+	// 更新设备回调
+	UpdateDeviceCallback(context.Context, *UpdateDeviceCallbackRequest) (*emptypb.Empty, error)
+	// 删除设备回调
+	DeleteDeviceCallback(context.Context, *DeleteDeviceCallbackRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedDeviceCallBackServiceServer()
 }
 
@@ -69,10 +83,13 @@ type DeviceCallBackServiceServer interface {
 type UnimplementedDeviceCallBackServiceServer struct {
 }
 
-func (UnimplementedDeviceCallBackServiceServer) CreateDeviceCallback(context.Context, *driverdevice.CreateDeviceRequest) (*emptypb.Empty, error) {
+func (UnimplementedDeviceCallBackServiceServer) CreateDeviceCallback(context.Context, *CreateDeviceCallbackRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDeviceCallback not implemented")
 }
-func (UnimplementedDeviceCallBackServiceServer) DeleteDeviceCallback(context.Context, *driverdevice.DeleteDeviceRequest) (*emptypb.Empty, error) {
+func (UnimplementedDeviceCallBackServiceServer) UpdateDeviceCallback(context.Context, *UpdateDeviceCallbackRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDeviceCallback not implemented")
+}
+func (UnimplementedDeviceCallBackServiceServer) DeleteDeviceCallback(context.Context, *DeleteDeviceCallbackRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDeviceCallback not implemented")
 }
 func (UnimplementedDeviceCallBackServiceServer) mustEmbedUnimplementedDeviceCallBackServiceServer() {}
@@ -89,7 +106,7 @@ func RegisterDeviceCallBackServiceServer(s grpc.ServiceRegistrar, srv DeviceCall
 }
 
 func _DeviceCallBackService_CreateDeviceCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(driverdevice.CreateDeviceRequest)
+	in := new(CreateDeviceCallbackRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -101,13 +118,31 @@ func _DeviceCallBackService_CreateDeviceCallback_Handler(srv interface{}, ctx co
 		FullMethod: "/devicecallback.DeviceCallBackService/CreateDeviceCallback",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceCallBackServiceServer).CreateDeviceCallback(ctx, req.(*driverdevice.CreateDeviceRequest))
+		return srv.(DeviceCallBackServiceServer).CreateDeviceCallback(ctx, req.(*CreateDeviceCallbackRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DeviceCallBackService_UpdateDeviceCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDeviceCallbackRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeviceCallBackServiceServer).UpdateDeviceCallback(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devicecallback.DeviceCallBackService/UpdateDeviceCallback",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceCallBackServiceServer).UpdateDeviceCallback(ctx, req.(*UpdateDeviceCallbackRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DeviceCallBackService_DeleteDeviceCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(driverdevice.DeleteDeviceRequest)
+	in := new(DeleteDeviceCallbackRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -119,7 +154,7 @@ func _DeviceCallBackService_DeleteDeviceCallback_Handler(srv interface{}, ctx co
 		FullMethod: "/devicecallback.DeviceCallBackService/DeleteDeviceCallback",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceCallBackServiceServer).DeleteDeviceCallback(ctx, req.(*driverdevice.DeleteDeviceRequest))
+		return srv.(DeviceCallBackServiceServer).DeleteDeviceCallback(ctx, req.(*DeleteDeviceCallbackRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -134,6 +169,10 @@ var DeviceCallBackService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateDeviceCallback",
 			Handler:    _DeviceCallBackService_CreateDeviceCallback_Handler,
+		},
+		{
+			MethodName: "UpdateDeviceCallback",
+			Handler:    _DeviceCallBackService_UpdateDeviceCallback_Handler,
 		},
 		{
 			MethodName: "DeleteDeviceCallback",
