@@ -31,7 +31,7 @@ type RpcDeviceClient interface {
 	// 获取所有设备
 	QueryDeviceList(ctx context.Context, in *QueryDeviceListRequest, opts ...grpc.CallOption) (*QueryDeviceListResponse, error)
 	// 获取设备
-	QueryDeviceById(ctx context.Context, in *QueryDeviceByIdRequest, opts ...grpc.CallOption) (*QueryDeviceByIdRequestResponse, error)
+	QueryDeviceById(ctx context.Context, in *QueryDeviceByIdRequest, opts ...grpc.CallOption) (*QueryDeviceByIdResponse, error)
 	// 创建设备
 	CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*CreateDeviceRequestResponse, error)
 	// 创建设备并且建立连接
@@ -84,8 +84,8 @@ func (c *rpcDeviceClient) QueryDeviceList(ctx context.Context, in *QueryDeviceLi
 	return out, nil
 }
 
-func (c *rpcDeviceClient) QueryDeviceById(ctx context.Context, in *QueryDeviceByIdRequest, opts ...grpc.CallOption) (*QueryDeviceByIdRequestResponse, error) {
-	out := new(QueryDeviceByIdRequestResponse)
+func (c *rpcDeviceClient) QueryDeviceById(ctx context.Context, in *QueryDeviceByIdRequest, opts ...grpc.CallOption) (*QueryDeviceByIdResponse, error) {
+	out := new(QueryDeviceByIdResponse)
 	err := c.cc.Invoke(ctx, "/driverdevice.RpcDevice/QueryDeviceById", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -133,7 +133,7 @@ type RpcDeviceServer interface {
 	// 获取所有设备
 	QueryDeviceList(context.Context, *QueryDeviceListRequest) (*QueryDeviceListResponse, error)
 	// 获取设备
-	QueryDeviceById(context.Context, *QueryDeviceByIdRequest) (*QueryDeviceByIdRequestResponse, error)
+	QueryDeviceById(context.Context, *QueryDeviceByIdRequest) (*QueryDeviceByIdResponse, error)
 	// 创建设备
 	CreateDevice(context.Context, *CreateDeviceRequest) (*CreateDeviceRequestResponse, error)
 	// 创建设备并且建立连接
@@ -159,7 +159,7 @@ func (UnimplementedRpcDeviceServer) GetDeviceConnectStatus(context.Context, *Get
 func (UnimplementedRpcDeviceServer) QueryDeviceList(context.Context, *QueryDeviceListRequest) (*QueryDeviceListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryDeviceList not implemented")
 }
-func (UnimplementedRpcDeviceServer) QueryDeviceById(context.Context, *QueryDeviceByIdRequest) (*QueryDeviceByIdRequestResponse, error) {
+func (UnimplementedRpcDeviceServer) QueryDeviceById(context.Context, *QueryDeviceByIdRequest) (*QueryDeviceByIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryDeviceById not implemented")
 }
 func (UnimplementedRpcDeviceServer) CreateDevice(context.Context, *CreateDeviceRequest) (*CreateDeviceRequestResponse, error) {

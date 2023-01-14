@@ -35,15 +35,12 @@ message QueryDeviceByIdRequest {
 }
 
 
-message QueryDeviceByIdRequestResponse {
+message QueryDeviceByIdResponse {
+  drivercommon.CommonResponse baseResponse = 1;
   message Data {
     Device device = 1;
   }
-  Data data = 1;
-  string RequestId = 2;
-  string Code = 3;
-  bool Success = 4;
-  string errorMessage = 5;
+  Data data = 2;
 }
 
 enum DeviceStatus {
@@ -69,15 +66,12 @@ message QueryDeviceListRequest {
 }
 
 message QueryDeviceListResponse {
+  drivercommon.CommonResponse baseResponse = 1;
   message Data {
     uint32 total = 1;
     repeated Device devices = 2;
   }
-  Data data = 1;
-  string RequestId = 2;
-  string Code = 3;
-  bool Success = 4;
-  string errorMessage = 5;
+  Data data = 2;
 }
 
 message AddDevice {
@@ -105,14 +99,11 @@ message CreateDeviceAndConnectRequest {
 }
 
 message CreateDeviceAndConnectRequestResponse {
+  drivercommon.CommonResponse baseResponse = 1;
   message Data {
-    Device devices = 2;
+    Device devices = 1;
   }
-  Data data = 1;
-  string RequestId = 2;
-  string Code = 3;
-  bool Success = 4;
-  string errorMessage = 5;
+  Data data = 2;
 }
 
 message DeleteDeviceRequest {
@@ -152,7 +143,7 @@ service RpcDevice {
   // 获取所有设备
   rpc QueryDeviceList(QueryDeviceListRequest) returns (QueryDeviceListResponse) {}
   // 获取设备
-  rpc QueryDeviceById(QueryDeviceByIdRequest) returns (QueryDeviceByIdRequestResponse) {}
+  rpc QueryDeviceById(QueryDeviceByIdRequest) returns (QueryDeviceByIdResponse) {}
   // 创建设备
   rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceRequestResponse) {}
   // 创建设备并且建立连接
