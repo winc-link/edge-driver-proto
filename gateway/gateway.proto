@@ -5,6 +5,7 @@ import "google/protobuf/empty.proto";
 
 
 service RpcGateway {
+  // 网关信息查询 edge s driver c
   rpc GetGatewayInfo(google.protobuf.Empty) returns (GateWayInfoResponse) {}
 }
 

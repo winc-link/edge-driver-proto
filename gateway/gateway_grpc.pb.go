@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RpcGatewayClient interface {
+	// 网关信息查询 edge s driver c
 	GetGatewayInfo(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GateWayInfoResponse, error)
 }
 
@@ -47,6 +48,7 @@ func (c *rpcGatewayClient) GetGatewayInfo(ctx context.Context, in *emptypb.Empty
 // All implementations must embed UnimplementedRpcGatewayServer
 // for forward compatibility
 type RpcGatewayServer interface {
+	// 网关信息查询 edge s driver c
 	GetGatewayInfo(context.Context, *emptypb.Empty) (*GateWayInfoResponse, error)
 	mustEmbedUnimplementedRpcGatewayServer()
 }

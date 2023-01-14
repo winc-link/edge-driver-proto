@@ -20,7 +20,7 @@ message deleteProductCallbackRequest {
   uint64 happenTime = 2;
 }
 
-service DeviceCallBackService {
+service ProductCallBackService {
   // 创建设备回调
   rpc CreateProductCallback(createProductCallbackRequest) returns (google.protobuf.Empty) {}
   // 更新设备回调

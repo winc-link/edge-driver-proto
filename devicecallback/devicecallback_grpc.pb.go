@@ -23,11 +23,11 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DeviceCallBackServiceClient interface {
-	// 创建设备回调
+	// 创建设备回调 edge = c driver = s
 	CreateDeviceCallback(ctx context.Context, in *CreateDeviceCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	// 更新设备回调
+	// 更新设备回调 edge = c driver = s
 	UpdateDeviceCallback(ctx context.Context, in *UpdateDeviceCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	// 删除设备回调
+	// 删除设备回调 edge = c driver = s
 	DeleteDeviceCallback(ctx context.Context, in *DeleteDeviceCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -70,11 +70,11 @@ func (c *deviceCallBackServiceClient) DeleteDeviceCallback(ctx context.Context, 
 // All implementations must embed UnimplementedDeviceCallBackServiceServer
 // for forward compatibility
 type DeviceCallBackServiceServer interface {
-	// 创建设备回调
+	// 创建设备回调 edge = c driver = s
 	CreateDeviceCallback(context.Context, *CreateDeviceCallbackRequest) (*emptypb.Empty, error)
-	// 更新设备回调
+	// 更新设备回调 edge = c driver = s
 	UpdateDeviceCallback(context.Context, *UpdateDeviceCallbackRequest) (*emptypb.Empty, error)
-	// 删除设备回调
+	// 删除设备回调 edge = c driver = s
 	DeleteDeviceCallback(context.Context, *DeleteDeviceCallbackRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedDeviceCallBackServiceServer()
 }

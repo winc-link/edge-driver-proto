@@ -21,6 +21,6 @@ message QueryCloudInstanceByPlatformResponse {
 }
 
 service CloudInstanceService {
-  // 查询云服务示例信息
+  // 查询云服务示例信息 edge = s driver = c
   rpc QueryCloudInstanceByPlatform(QueryCloudInstanceByPlatformRequest) returns (QueryCloudInstanceByPlatformResponse) {}
 }

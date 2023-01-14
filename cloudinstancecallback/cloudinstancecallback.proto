@@ -12,6 +12,7 @@ message cloudInstanceStatueCallbackRequest {
 }
 
 service CloudInstanceCallBackService {
+  // 云实例状态回调 edge = c driver = s
   rpc CloudInstanceStatueCallback(cloudInstanceStatueCallbackRequest) returns (google.protobuf.Empty) {}
 }
 

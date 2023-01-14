@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CloudInstanceServiceClient interface {
-	// 查询云服务示例信息
+	// 查询云服务示例信息 edge = s driver = c
 	QueryCloudInstanceByPlatform(ctx context.Context, in *QueryCloudInstanceByPlatformRequest, opts ...grpc.CallOption) (*QueryCloudInstanceByPlatformResponse, error)
 }
 
@@ -47,7 +47,7 @@ func (c *cloudInstanceServiceClient) QueryCloudInstanceByPlatform(ctx context.Co
 // All implementations must embed UnimplementedCloudInstanceServiceServer
 // for forward compatibility
 type CloudInstanceServiceServer interface {
-	// 查询云服务示例信息
+	// 查询云服务示例信息 edge = s driver = c
 	QueryCloudInstanceByPlatform(context.Context, *QueryCloudInstanceByPlatformRequest) (*QueryCloudInstanceByPlatformResponse, error)
 	mustEmbedUnimplementedCloudInstanceServiceServer()
 }

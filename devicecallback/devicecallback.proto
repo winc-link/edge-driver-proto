@@ -21,10 +21,10 @@ message deleteDeviceCallbackRequest {
 }
 
 service DeviceCallBackService {
-  // 创建设备回调
+  // 创建设备回调 edge = c driver = s
   rpc CreateDeviceCallback(createDeviceCallbackRequest) returns (google.protobuf.Empty) {}
-  // 更新设备回调
+  // 更新设备回调 edge = c driver = s
   rpc UpdateDeviceCallback(updateDeviceCallbackRequest) returns (google.protobuf.Empty) {}
-  // 删除设备回调
+  // 删除设备回调 edge = c driver = s
   rpc DeleteDeviceCallback(deleteDeviceCallbackRequest) returns (google.protobuf.Empty) {}
 }

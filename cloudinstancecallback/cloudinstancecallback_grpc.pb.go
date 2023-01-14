@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CloudInstanceCallBackServiceClient interface {
+	// 云实例状态回调 edge = c driver = s
 	CloudInstanceStatueCallback(ctx context.Context, in *CloudInstanceStatueCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -47,6 +48,7 @@ func (c *cloudInstanceCallBackServiceClient) CloudInstanceStatueCallback(ctx con
 // All implementations must embed UnimplementedCloudInstanceCallBackServiceServer
 // for forward compatibility
 type CloudInstanceCallBackServiceServer interface {
+	// 云实例状态回调 edge = c driver = s
 	CloudInstanceStatueCallback(context.Context, *CloudInstanceStatueCallbackRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedCloudInstanceCallBackServiceServer()
 }

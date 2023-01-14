@@ -134,7 +134,7 @@ message GetDeviceConnectStatusResponse {
 }
 
 service RpcDevice {
-  // 设备连接云服务
+  // 设备连接云服务 edge s driver c
   rpc ConnectIotPlatform(ConnectIotPlatformRequest) returns (ConnectIotPlatformResponse) {}
   // 设备断开连接云服务
   rpc DisconnectIotPlatform(DisconnectIotPlatformRequest) returns (DisconnectIotPlatformResponse) {}
