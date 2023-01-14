@@ -21,7 +21,7 @@ message deleteProductCallbackRequest {
 }
 
 service ProductCallBackService {
-  // 创建设备回调
+  // 创建设备回调 edge c driver s
   rpc CreateProductCallback(createProductCallbackRequest) returns (google.protobuf.Empty) {}
   // 更新设备回调
   rpc UpdateProductCallback(updateProductCallbackRequest) returns (google.protobuf.Empty) {}

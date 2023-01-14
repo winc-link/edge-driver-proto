@@ -22,9 +22,9 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RpcProductClient interface {
-	// 获取所有设备
+	// 获取所有设备 edge s driver c
 	QueryProductList(ctx context.Context, in *QueryProductListRequest, opts ...grpc.CallOption) (*QueryProductListResponse, error)
-	// 获取设备
+	// 获取设备 edge s driver c
 	QueryProductById(ctx context.Context, in *QueryProductByIdRequest, opts ...grpc.CallOption) (*QueryProductByIdResponse, error)
 }
 
@@ -58,9 +58,9 @@ func (c *rpcProductClient) QueryProductById(ctx context.Context, in *QueryProduc
 // All implementations must embed UnimplementedRpcProductServer
 // for forward compatibility
 type RpcProductServer interface {
-	// 获取所有设备
+	// 获取所有设备 edge s driver c
 	QueryProductList(context.Context, *QueryProductListRequest) (*QueryProductListResponse, error)
-	// 获取设备
+	// 获取设备 edge s driver c
 	QueryProductById(context.Context, *QueryProductByIdRequest) (*QueryProductByIdResponse, error)
 	mustEmbedUnimplementedRpcProductServer()
 }

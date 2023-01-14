@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProductCallBackServiceClient interface {
-	// 创建设备回调
+	// 创建设备回调 edge c driver s
 	CreateProductCallback(ctx context.Context, in *CreateProductCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// 更新设备回调
 	UpdateProductCallback(ctx context.Context, in *UpdateProductCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -70,7 +70,7 @@ func (c *productCallBackServiceClient) DeleteProductCallback(ctx context.Context
 // All implementations must embed UnimplementedProductCallBackServiceServer
 // for forward compatibility
 type ProductCallBackServiceServer interface {
-	// 创建设备回调
+	// 创建设备回调 edge c driver s
 	CreateProductCallback(context.Context, *CreateProductCallbackRequest) (*emptypb.Empty, error)
 	// 更新设备回调
 	UpdateProductCallback(context.Context, *UpdateProductCallbackRequest) (*emptypb.Empty, error)
