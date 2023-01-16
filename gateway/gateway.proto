@@ -1,5 +1,5 @@
 syntax = "proto3";
-package device;
+package gateway;
 option go_package = "github.com/winc-link/edge-driver-proto/gateway";
 import "google/protobuf/empty.proto";
 

@@ -37,7 +37,7 @@ func NewRpcGatewayClient(cc grpc.ClientConnInterface) RpcGatewayClient {
 
 func (c *rpcGatewayClient) GetGatewayInfo(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GateWayInfoResponse, error) {
 	out := new(GateWayInfoResponse)
-	err := c.cc.Invoke(ctx, "/device.RpcGateway/GetGatewayInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/gateway.RpcGateway/GetGatewayInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func _RpcGateway_GetGatewayInfo_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/device.RpcGateway/GetGatewayInfo",
+		FullMethod: "/gateway.RpcGateway/GetGatewayInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RpcGatewayServer).GetGatewayInfo(ctx, req.(*emptypb.Empty))
@@ -95,7 +95,7 @@ func _RpcGateway_GetGatewayInfo_Handler(srv interface{}, ctx context.Context, de
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var RpcGateway_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "device.RpcGateway",
+	ServiceName: "gateway.RpcGateway",
 	HandlerType: (*RpcGatewayServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
