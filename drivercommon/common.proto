@@ -27,8 +27,6 @@ message BaseRequestMessage {
    string driverInstanceId = 3;
 }
 
-
-
 message CommonResponse {
    string RequestId = 1;
    string errorMessage = 2;

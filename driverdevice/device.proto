@@ -31,7 +31,8 @@ message DisconnectIotPlatformResponse {
 }
 
 message QueryDeviceByIdRequest {
-  string Id = 1;
+  drivercommon.BaseRequestMessage baseRequest = 1;
+  string Id = 2;
 }
 
 
@@ -61,8 +62,7 @@ message Device {
 }
 
 message QueryDeviceListRequest {
-  string platform = 1;
-  string serviceId = 2;
+  drivercommon.BaseRequestMessage baseRequest = 1;
 }
 
 message QueryDeviceListResponse {
@@ -116,7 +116,8 @@ message DeleteDeviceResponse {
 }
 
 message GetDeviceConnectStatusRequest {
-  string deviceId = 1;
+  drivercommon.BaseRequestMessage baseRequest = 1;
+  string deviceId = 2;
 }
 
 enum ConnectStatus {
