@@ -16,7 +16,7 @@ message updateProductCallbackRequest {
 }
 
 message deleteProductCallbackRequest {
-  string deviceId  =1;
+  string productId  =1;
   uint64 happenTime = 2;
 }
 
