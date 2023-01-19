@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package drivercommon;
+import "google/protobuf/empty.proto";
 option go_package = "github.com/winc-link/edge-driver-proto/drivercommon";
 
 enum IotPlatform {
@@ -32,4 +33,19 @@ message CommonResponse {
    string errorMessage = 2;
    string Code = 3;
    bool Success = 4;
+}
+
+message Pong {
+   string timestamp = 2;
+}
+
+message VersionResponse {
+   string version = 2;
+}
+
+service Common {
+   // Ping tests whether the service is working
+   rpc Ping(google.protobuf.Empty) returns (Pong) {}
+   // Version obtains version information from the target service.
+   rpc Version(google.protobuf.Empty) returns (VersionResponse) {}
 }
