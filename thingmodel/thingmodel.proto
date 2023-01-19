@@ -30,13 +30,24 @@ enum ThingModelOperationType {
 
 // 物模型
 message ThingModelMsg {
-  drivercommon.BaseRequestMessage baseRequest = 5;
+  drivercommon.BaseRequestMessage baseRequest = 1;
+  string cid = 2; // 下发的目标设备id
+  ThingModelOperationType op_type = 3;
+  string data = 4;
+}
+
+// sdk 物模型消息上报 edge
+service ThingModelUpService {
+  rpc ThingModelMsgReport(ThingModelMsg) returns (google.protobuf.Empty) {}
+}
+
+message ThingModelIssueMsg {
   string cid = 1; // 下发的目标设备id
   ThingModelOperationType op_type = 2;
   string data = 3;
 }
 
-
-service ThingModelUpService {
-  rpc ThingModelMsgReport(ThingModelMsg) returns (google.protobuf.Empty) {}
+// edge 物模型消息下发 sdk
+service ThingModelDownService {
+  rpc ThingModelMsgIssue(ThingModelIssueMsg) returns (google.protobuf.Empty) {}
 }

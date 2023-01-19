@@ -104,3 +104,89 @@ var ThingModelUpService_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "thingmodel/thingmodel.proto",
 }
+
+// ThingModelDownServiceClient is the client API for ThingModelDownService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type ThingModelDownServiceClient interface {
+	ThingModelMsgIssue(ctx context.Context, in *ThingModelIssueMsg, opts ...grpc.CallOption) (*emptypb.Empty, error)
+}
+
+type thingModelDownServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewThingModelDownServiceClient(cc grpc.ClientConnInterface) ThingModelDownServiceClient {
+	return &thingModelDownServiceClient{cc}
+}
+
+func (c *thingModelDownServiceClient) ThingModelMsgIssue(ctx context.Context, in *ThingModelIssueMsg, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/thingmodel.ThingModelDownService/ThingModelMsgIssue", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ThingModelDownServiceServer is the server API for ThingModelDownService service.
+// All implementations must embed UnimplementedThingModelDownServiceServer
+// for forward compatibility
+type ThingModelDownServiceServer interface {
+	ThingModelMsgIssue(context.Context, *ThingModelIssueMsg) (*emptypb.Empty, error)
+	mustEmbedUnimplementedThingModelDownServiceServer()
+}
+
+// UnimplementedThingModelDownServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedThingModelDownServiceServer struct {
+}
+
+func (UnimplementedThingModelDownServiceServer) ThingModelMsgIssue(context.Context, *ThingModelIssueMsg) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ThingModelMsgIssue not implemented")
+}
+func (UnimplementedThingModelDownServiceServer) mustEmbedUnimplementedThingModelDownServiceServer() {}
+
+// UnsafeThingModelDownServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ThingModelDownServiceServer will
+// result in compilation errors.
+type UnsafeThingModelDownServiceServer interface {
+	mustEmbedUnimplementedThingModelDownServiceServer()
+}
+
+func RegisterThingModelDownServiceServer(s grpc.ServiceRegistrar, srv ThingModelDownServiceServer) {
+	s.RegisterService(&ThingModelDownService_ServiceDesc, srv)
+}
+
+func _ThingModelDownService_ThingModelMsgIssue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ThingModelIssueMsg)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ThingModelDownServiceServer).ThingModelMsgIssue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/thingmodel.ThingModelDownService/ThingModelMsgIssue",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ThingModelDownServiceServer).ThingModelMsgIssue(ctx, req.(*ThingModelIssueMsg))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// ThingModelDownService_ServiceDesc is the grpc.ServiceDesc for ThingModelDownService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var ThingModelDownService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "thingmodel.ThingModelDownService",
+	HandlerType: (*ThingModelDownServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ThingModelMsgIssue",
+			Handler:    _ThingModelDownService_ThingModelMsgIssue_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "thingmodel/thingmodel.proto",
+}
