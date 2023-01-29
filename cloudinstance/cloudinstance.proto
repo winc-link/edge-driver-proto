@@ -20,7 +20,18 @@ message QueryCloudInstanceByPlatformResponse {
   CloudInstanceStatus status = 4;
 }
 
+message DriverReportPlatformInfoRequest {
+  string driverInstanceId = 1;
+  drivercommon.IotPlatform iotPlatform = 2;
+}
+
+message DriverReportPlatformInfoResponse {
+  drivercommon.CommonResponse baseResponse = 1;
+}
+
 service CloudInstanceService {
   // 查询云服务示例信息 edge = s driver = c
   rpc QueryCloudInstanceByPlatform(QueryCloudInstanceByPlatformRequest) returns (QueryCloudInstanceByPlatformResponse) {}
+  // 上报驱动使用云实例
+  rpc DriverReportPlatformInfo(DriverReportPlatformInfoRequest) returns (DriverReportPlatformInfoResponse) {}
 }
