@@ -36,9 +36,16 @@ message ThingModelMsg {
   string data = 4;
 }
 
+message ThingModelMsgResponse {
+  string MsgId = 1;
+  int64  Code  = 2;
+  string Message = 3;
+  string Version = 4;
+}
+
 // sdk 物模型消息上报 edge
 service ThingModelUpService {
-  rpc ThingModelMsgReport(ThingModelMsg) returns (google.protobuf.Empty) {}
+  rpc ThingModelMsgReport(ThingModelMsg) returns (ThingModelMsgResponse) {}
 }
 
 enum OperationType {

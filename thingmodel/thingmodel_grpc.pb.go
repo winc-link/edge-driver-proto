@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ThingModelUpServiceClient interface {
-	ThingModelMsgReport(ctx context.Context, in *ThingModelMsg, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	ThingModelMsgReport(ctx context.Context, in *ThingModelMsg, opts ...grpc.CallOption) (*ThingModelMsgResponse, error)
 }
 
 type thingModelUpServiceClient struct {
@@ -34,8 +34,8 @@ func NewThingModelUpServiceClient(cc grpc.ClientConnInterface) ThingModelUpServi
 	return &thingModelUpServiceClient{cc}
 }
 
-func (c *thingModelUpServiceClient) ThingModelMsgReport(ctx context.Context, in *ThingModelMsg, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
+func (c *thingModelUpServiceClient) ThingModelMsgReport(ctx context.Context, in *ThingModelMsg, opts ...grpc.CallOption) (*ThingModelMsgResponse, error) {
+	out := new(ThingModelMsgResponse)
 	err := c.cc.Invoke(ctx, "/thingmodel.ThingModelUpService/ThingModelMsgReport", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -47,7 +47,7 @@ func (c *thingModelUpServiceClient) ThingModelMsgReport(ctx context.Context, in 
 // All implementations must embed UnimplementedThingModelUpServiceServer
 // for forward compatibility
 type ThingModelUpServiceServer interface {
-	ThingModelMsgReport(context.Context, *ThingModelMsg) (*emptypb.Empty, error)
+	ThingModelMsgReport(context.Context, *ThingModelMsg) (*ThingModelMsgResponse, error)
 	mustEmbedUnimplementedThingModelUpServiceServer()
 }
 
@@ -55,7 +55,7 @@ type ThingModelUpServiceServer interface {
 type UnimplementedThingModelUpServiceServer struct {
 }
 
-func (UnimplementedThingModelUpServiceServer) ThingModelMsgReport(context.Context, *ThingModelMsg) (*emptypb.Empty, error) {
+func (UnimplementedThingModelUpServiceServer) ThingModelMsgReport(context.Context, *ThingModelMsg) (*ThingModelMsgResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ThingModelMsgReport not implemented")
 }
 func (UnimplementedThingModelUpServiceServer) mustEmbedUnimplementedThingModelUpServiceServer() {}
