@@ -8,6 +8,7 @@ package thingmodel
 
 import (
 	context "context"
+	drivercommon "github.com/winc-link/edge-driver-proto/drivercommon"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -23,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ThingModelUpServiceClient interface {
-	ThingModelMsgReport(ctx context.Context, in *ThingModelMsg, opts ...grpc.CallOption) (*ThingModelMsgResponse, error)
+	ThingModelMsgReport(ctx context.Context, in *ThingModelMsg, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error)
 }
 
 type thingModelUpServiceClient struct {
@@ -34,8 +35,8 @@ func NewThingModelUpServiceClient(cc grpc.ClientConnInterface) ThingModelUpServi
 	return &thingModelUpServiceClient{cc}
 }
 
-func (c *thingModelUpServiceClient) ThingModelMsgReport(ctx context.Context, in *ThingModelMsg, opts ...grpc.CallOption) (*ThingModelMsgResponse, error) {
-	out := new(ThingModelMsgResponse)
+func (c *thingModelUpServiceClient) ThingModelMsgReport(ctx context.Context, in *ThingModelMsg, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error) {
+	out := new(drivercommon.CommonResponse)
 	err := c.cc.Invoke(ctx, "/thingmodel.ThingModelUpService/ThingModelMsgReport", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -47,7 +48,7 @@ func (c *thingModelUpServiceClient) ThingModelMsgReport(ctx context.Context, in 
 // All implementations must embed UnimplementedThingModelUpServiceServer
 // for forward compatibility
 type ThingModelUpServiceServer interface {
-	ThingModelMsgReport(context.Context, *ThingModelMsg) (*ThingModelMsgResponse, error)
+	ThingModelMsgReport(context.Context, *ThingModelMsg) (*drivercommon.CommonResponse, error)
 	mustEmbedUnimplementedThingModelUpServiceServer()
 }
 
@@ -55,7 +56,7 @@ type ThingModelUpServiceServer interface {
 type UnimplementedThingModelUpServiceServer struct {
 }
 
-func (UnimplementedThingModelUpServiceServer) ThingModelMsgReport(context.Context, *ThingModelMsg) (*ThingModelMsgResponse, error) {
+func (UnimplementedThingModelUpServiceServer) ThingModelMsgReport(context.Context, *ThingModelMsg) (*drivercommon.CommonResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ThingModelMsgReport not implemented")
 }
 func (UnimplementedThingModelUpServiceServer) mustEmbedUnimplementedThingModelUpServiceServer() {}

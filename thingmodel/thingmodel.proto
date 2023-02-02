@@ -5,7 +5,6 @@ option go_package = "github.com/winc-link/edge-driver-proto/thingmodel";
 import "google/protobuf/empty.proto";
 import "drivercommon/common.proto";
 
-
 //enum ThingModelOperationType {
 //  UNSPECIFIEDs = 0;
 //  MODEL_GET = 1;  // 设备上报向云端获取物模型查询请求
@@ -36,16 +35,11 @@ message ThingModelMsg {
   string data = 4;
 }
 
-message ThingModelMsgResponse {
-  string MsgId = 1;
-  int64  Code  = 2;
-  string Message = 3;
-  string Version = 4;
-}
+
 
 // sdk 物模型消息上报 edge
 service ThingModelUpService {
-  rpc ThingModelMsgReport(ThingModelMsg) returns (ThingModelMsgResponse) {}
+  rpc ThingModelMsgReport(ThingModelMsg) returns (drivercommon.CommonResponse) {}
 }
 
 enum OperationType {
