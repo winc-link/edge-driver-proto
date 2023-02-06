@@ -1,0 +1,33 @@
+syntax = "proto3";
+package custommqttmessage;
+option go_package = "github.com/winc-link/edge-driver-proto/custommqttmessage";
+import "drivercommon/common.proto";
+
+message PlatformCustomPublishRequest{
+  string deviceId = 1;
+  string topic = 2;
+  int32 qos = 3;
+  bool retained = 4;
+  string payload = 5;
+}
+
+message PlatformCustomSubscribeRequest {
+  string deviceId = 1;
+  repeated string topics = 2;
+}
+
+message PlatformCustomUnSubscribeRequest {
+  string deviceId = 1;
+  string topic = 2;
+  int32 qos = 3;
+}
+
+// 自定义mqtt消息入口
+service RpcCustomMqttMessage {
+  // 平台自定义消息推Public
+  rpc PlatformCustomPublish(PlatformCustomPublishRequest) returns (drivercommon.CommonResponse) {}
+  // 平台自定义消息推Subscribe
+  rpc PlatformCustomSubscribe(PlatformCustomSubscribeRequest) returns (drivercommon.CommonResponse) {}
+  // 平台自定义消息UnSubscribe
+  rpc PlatformCustomUnSubscribe(PlatformCustomUnSubscribeRequest) returns (drivercommon.CommonResponse) {}
+}
