@@ -15,14 +15,14 @@ message PlatformCustomPublishRequest{
 message PlatformCustomSubscribeRequest {
   drivercommon.BaseRequestMessage baseRequest = 1;
   string deviceId = 2;
-  repeated string topics = 3;
+  string topic = 3;
+  int32 qos = 4;
 }
 
 message PlatformCustomUnSubscribeRequest {
   drivercommon.BaseRequestMessage baseRequest = 1;
   string deviceId = 2;
-  string topic = 3;
-  int32 qos = 4;
+  repeated string topics = 3;
 }
 
 // 自定义mqtt消息入口
