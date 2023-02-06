@@ -53,6 +53,7 @@ enum OperationType {
   DATA_BATCH_REPORT_RESPONSE = 6;   // 云端响应批量上报消息
   PROPERTY_DESIRED_GET_RESPONSE = 7;  // 云端响应设备上报向云端获取属性期望值请求
   PROPERTY_DESIRED_DELETE_RESPONSE = 8;  // 云端响应设备上报向云端发送清除属性期望值请求
+  CUSTOM_MQTT_PUBLISH = 9; //云端自定义topic 消息下发
   //上报相关
   PROPERTY_REPORT = 20;    // 属性上报
   PROPERTY_SET_RESPONSE = 21;   // 响应云端下发属性请求
