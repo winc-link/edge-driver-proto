@@ -4,22 +4,25 @@ option go_package = "github.com/winc-link/edge-driver-proto/custommqttmessage";
 import "drivercommon/common.proto";
 
 message PlatformCustomPublishRequest{
-  string deviceId = 1;
-  string topic = 2;
-  int32 qos = 3;
-  bool retained = 4;
-  string payload = 5;
+  drivercommon.BaseRequestMessage baseRequest = 1;
+  string deviceId = 2;
+  string topic = 3;
+  int32 qos = 4;
+  bool retained = 5;
+  string payload = 6;
 }
 
 message PlatformCustomSubscribeRequest {
-  string deviceId = 1;
-  repeated string topics = 2;
+  drivercommon.BaseRequestMessage baseRequest = 1;
+  string deviceId = 2;
+  repeated string topics = 3;
 }
 
 message PlatformCustomUnSubscribeRequest {
-  string deviceId = 1;
-  string topic = 2;
-  int32 qos = 3;
+  drivercommon.BaseRequestMessage baseRequest = 1;
+  string deviceId = 2;
+  string topic = 3;
+  int32 qos = 4;
 }
 
 // 自定义mqtt消息入口
