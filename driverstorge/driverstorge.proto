@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package driverstorage;
+option go_package = "github.com/winc-link/edge-driver-proto/driverstorage";
+
+import "drivercommon/common.proto";
+
+message PutReq {
+  string driver_service_id = 1;
+  repeated KV data = 2;
+}
+
+message GetReq {
+  string driver_service_id = 1;
+  repeated string keys = 2;
+}
+
+message AllReq {
+  string driver_service_id = 1;
+}
+
+message DeleteReq {
+  string driver_service_id = 1;
+  repeated string keys = 2;
+}
+
+message KVs {
+  drivercommon.CommonResponse baseResponse = 1;
+  repeated KV kvs = 2;
+}
+
+message KV {
+  drivercommon.CommonResponse baseResponse = 1;
+  string key = 2;
+  bytes value = 3;
+}
+
+service DriverStorage {
+
+  rpc All(AllReq) returns(KVs);
+
+  rpc Get(GetReq) returns (KVs);
+
+  rpc Put(PutReq) returns (drivercommon.CommonResponse);
+
+  rpc Delete(DeleteReq) returns (drivercommon.CommonResponse);
+}
