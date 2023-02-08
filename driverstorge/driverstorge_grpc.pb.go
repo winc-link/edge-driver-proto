@@ -8,10 +8,10 @@ package driverstorage
 
 import (
 	context "context"
-	drivercommon "github.com/winc-link/edge-driver-proto/drivercommon"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -23,10 +23,14 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DriverStorageClient interface {
+	// all
 	All(ctx context.Context, in *AllReq, opts ...grpc.CallOption) (*KVs, error)
+	// get
 	Get(ctx context.Context, in *GetReq, opts ...grpc.CallOption) (*KVs, error)
-	Put(ctx context.Context, in *PutReq, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error)
-	Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error)
+	// put
+	Put(ctx context.Context, in *PutReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// delete
+	Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type driverStorageClient struct {
@@ -55,8 +59,8 @@ func (c *driverStorageClient) Get(ctx context.Context, in *GetReq, opts ...grpc.
 	return out, nil
 }
 
-func (c *driverStorageClient) Put(ctx context.Context, in *PutReq, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error) {
-	out := new(drivercommon.CommonResponse)
+func (c *driverStorageClient) Put(ctx context.Context, in *PutReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/driverstorage.DriverStorage/Put", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -64,8 +68,8 @@ func (c *driverStorageClient) Put(ctx context.Context, in *PutReq, opts ...grpc.
 	return out, nil
 }
 
-func (c *driverStorageClient) Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error) {
-	out := new(drivercommon.CommonResponse)
+func (c *driverStorageClient) Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/driverstorage.DriverStorage/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -77,10 +81,14 @@ func (c *driverStorageClient) Delete(ctx context.Context, in *DeleteReq, opts ..
 // All implementations must embed UnimplementedDriverStorageServer
 // for forward compatibility
 type DriverStorageServer interface {
+	// all
 	All(context.Context, *AllReq) (*KVs, error)
+	// get
 	Get(context.Context, *GetReq) (*KVs, error)
-	Put(context.Context, *PutReq) (*drivercommon.CommonResponse, error)
-	Delete(context.Context, *DeleteReq) (*drivercommon.CommonResponse, error)
+	// put
+	Put(context.Context, *PutReq) (*emptypb.Empty, error)
+	// delete
+	Delete(context.Context, *DeleteReq) (*emptypb.Empty, error)
 	mustEmbedUnimplementedDriverStorageServer()
 }
 
@@ -94,10 +102,10 @@ func (UnimplementedDriverStorageServer) All(context.Context, *AllReq) (*KVs, err
 func (UnimplementedDriverStorageServer) Get(context.Context, *GetReq) (*KVs, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedDriverStorageServer) Put(context.Context, *PutReq) (*drivercommon.CommonResponse, error) {
+func (UnimplementedDriverStorageServer) Put(context.Context, *PutReq) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Put not implemented")
 }
-func (UnimplementedDriverStorageServer) Delete(context.Context, *DeleteReq) (*drivercommon.CommonResponse, error) {
+func (UnimplementedDriverStorageServer) Delete(context.Context, *DeleteReq) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedDriverStorageServer) mustEmbedUnimplementedDriverStorageServer() {}

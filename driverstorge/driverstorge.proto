@@ -2,8 +2,7 @@ syntax = "proto3";
 
 package driverstorage;
 option go_package = "github.com/winc-link/edge-driver-proto/driverstorage";
-
-import "drivercommon/common.proto";
+import "google/protobuf/empty.proto";
 
 message PutReq {
   string driver_service_id = 1;
@@ -25,23 +24,21 @@ message DeleteReq {
 }
 
 message KVs {
-  drivercommon.CommonResponse baseResponse = 1;
-  repeated KV kvs = 2;
+  repeated KV kvs = 1;
 }
 
 message KV {
-  drivercommon.CommonResponse baseResponse = 1;
-  string key = 2;
-  bytes value = 3;
+  string key = 1;
+  bytes value = 2;
 }
 
 service DriverStorage {
-
+  // all
   rpc All(AllReq) returns(KVs);
-
+  // get
   rpc Get(GetReq) returns (KVs);
-
-  rpc Put(PutReq) returns (drivercommon.CommonResponse);
-
-  rpc Delete(DeleteReq) returns (drivercommon.CommonResponse);
+  // put
+  rpc Put(PutReq) returns (google.protobuf.Empty);
+  // delete
+  rpc Delete(DeleteReq) returns (google.protobuf.Empty);
 }
