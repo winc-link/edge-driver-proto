@@ -59,6 +59,8 @@ message Device {
   string product_id = 4;
   DeviceStatus status = 5;
   drivercommon.IotPlatform platform = 6;
+  string device_sn    = 7;
+  map<string, string> External = 8;
 }
 
 message QueryDeviceListRequest {
@@ -78,6 +80,8 @@ message AddDevice {
   string name = 1;
   string product_id = 2;
   string description = 3;
+  string device_sn    = 4;
+  map<string, string> External = 5;
 }
 
 
@@ -123,6 +127,10 @@ message GetDeviceConnectStatusRequest {
 enum ConnectStatus {
   ONLINE = 0;//在线
   OFFLINE = 1;//离线
+  UnACTIVE = 2;//未激活
+  DISABLE = 3;//禁用
+  UnKnow = 4;//未知
+
 }
 
 message GetDeviceConnectStatusResponse {
