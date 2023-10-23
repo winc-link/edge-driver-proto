@@ -59,8 +59,9 @@ message Device {
   string product_id = 4;
   DeviceStatus status = 5;
   drivercommon.IotPlatform platform = 6;
-  string device_sn    = 7;
-  map<string, string> External = 8;
+  string device_sn  = 7;
+  string secret = 8;
+  map<string, string> External = 9;
 }
 
 message QueryDeviceListRequest {
