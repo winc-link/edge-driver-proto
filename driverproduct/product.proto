@@ -50,6 +50,7 @@ message Product {
   repeated Properties properties = 9;//属性
   repeated Events events = 10;//事件
   repeated Actions actions = 11; //动作
+  string key = 12;
 }
 
 message Properties {
