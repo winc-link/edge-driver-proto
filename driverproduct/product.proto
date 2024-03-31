@@ -62,6 +62,7 @@ message Properties {
   bool required = 9;
   string accessMode = 6;
   TypeSpec typeSpec = 7;
+  map<string, string> extend = 8;
 }
 
 message Events {
