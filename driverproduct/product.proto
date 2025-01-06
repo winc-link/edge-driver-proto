@@ -64,7 +64,7 @@ enum protocolType {
     GB28181 = 7;
     SiemensS7 = 8;
     IEC104 = 9;
-
+    UnknowProtocolType = 99;
 }
 
 message Properties {
