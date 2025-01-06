@@ -46,11 +46,25 @@ message Product {
   string dataFormat = 6;//上报数据的格式
   drivercommon.IotPlatform Platform = 7;
   ProductNetType netType = 8;//联网方式
-  string protocolType = 13;//协议类型
+  protocolType protocol = 13;//协议类型
   repeated Properties properties = 9;//属性
   repeated Events events = 10;//事件
   repeated Actions actions = 11; //动作
   string key = 12;
+}
+
+enum protocolType {
+    MQTT = 0;
+    TCP = 1;
+    UDP = 2;
+    CoAP = 3;
+    HTTP = 4;
+    WebSocket = 5;
+    ModbusTCP = 6;
+    GB28181 = 7;
+    SiemensS7 = 8;
+    IEC104 = 9;
+
 }
 
 message Properties {
@@ -63,6 +77,11 @@ message Properties {
   string accessMode = 6;
   TypeSpec typeSpec = 7;
   string extend = 8;
+//  string readFormula = 10;
+//  string writeFormula = 11;
+//  string registerAddr = 12;
+//  string registerType = 13;
+  map<string, string> External = 14;
 }
 
 message Events {
