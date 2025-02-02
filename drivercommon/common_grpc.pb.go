@@ -20,8 +20,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Common_Ping_FullMethodName    = "/drivercommon.Common/Ping"
-	Common_Version_FullMethodName = "/drivercommon.Common/Version"
+	Common_Ping_FullMethodName                 = "/drivercommon.Common/Ping"
+	Common_Version_FullMethodName              = "/drivercommon.Common/Version"
+	Common_GetHummingbirdConfig_FullMethodName = "/drivercommon.Common/GetHummingbirdConfig"
 )
 
 // CommonClient is the client API for Common service.
@@ -32,6 +33,8 @@ type CommonClient interface {
 	Ping(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Pong, error)
 	// Version obtains version information from the target service.
 	Version(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*VersionResponse, error)
+	// GetHummingbirdConfig get service config
+	GetHummingbirdConfig(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ConfigResponse, error)
 }
 
 type commonClient struct {
@@ -60,6 +63,15 @@ func (c *commonClient) Version(ctx context.Context, in *emptypb.Empty, opts ...g
 	return out, nil
 }
 
+func (c *commonClient) GetHummingbirdConfig(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ConfigResponse, error) {
+	out := new(ConfigResponse)
+	err := c.cc.Invoke(ctx, Common_GetHummingbirdConfig_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CommonServer is the server API for Common service.
 // All implementations must embed UnimplementedCommonServer
 // for forward compatibility
@@ -68,6 +80,8 @@ type CommonServer interface {
 	Ping(context.Context, *emptypb.Empty) (*Pong, error)
 	// Version obtains version information from the target service.
 	Version(context.Context, *emptypb.Empty) (*VersionResponse, error)
+	// GetHummingbirdConfig get service config
+	GetHummingbirdConfig(context.Context, *emptypb.Empty) (*ConfigResponse, error)
 	mustEmbedUnimplementedCommonServer()
 }
 
@@ -80,6 +94,9 @@ func (UnimplementedCommonServer) Ping(context.Context, *emptypb.Empty) (*Pong, e
 }
 func (UnimplementedCommonServer) Version(context.Context, *emptypb.Empty) (*VersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Version not implemented")
+}
+func (UnimplementedCommonServer) GetHummingbirdConfig(context.Context, *emptypb.Empty) (*ConfigResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetHummingbirdConfig not implemented")
 }
 func (UnimplementedCommonServer) mustEmbedUnimplementedCommonServer() {}
 
@@ -130,6 +147,24 @@ func _Common_Version_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Common_GetHummingbirdConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommonServer).GetHummingbirdConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Common_GetHummingbirdConfig_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommonServer).GetHummingbirdConfig(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Common_ServiceDesc is the grpc.ServiceDesc for Common service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -144,6 +179,10 @@ var Common_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Version",
 			Handler:    _Common_Version_Handler,
+		},
+		{
+			MethodName: "GetHummingbirdConfig",
+			Handler:    _Common_GetHummingbirdConfig_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -43,9 +43,46 @@ message VersionResponse {
    string version = 2;
 }
 
+message ConfigResponse{
+   MetaBases metaBases = 1;
+   DataBases dataBases = 2;
+   MessageQueue messageQueue = 3;
+}
+message MetaBases {
+   string Type = 1;
+   string Source = 2;
+}
+
+message DataBases {
+   string Type = 1;
+   TDengineSource tdengine = 2;
+   InfluxDB influxDB = 3;
+}
+
+message TDengineSource {
+   string Dsn = 1;
+}
+
+message InfluxDB {
+   string org = 1;
+   string bucket = 2;
+   string url = 3;
+   string token = 4;
+}
+
+message MessageQueue {
+   string Protocol = 1;
+   string Host = 2;
+   uint32 Port = 3;
+   string Type = 4;
+   string PublishTopicPrefix = 5;
+}
+
 service Common {
    // Ping tests whether the service is working
    rpc Ping(google.protobuf.Empty) returns (Pong) {}
    // Version obtains version information from the target service.
    rpc Version(google.protobuf.Empty) returns (VersionResponse) {}
+   // GetHummingbirdConfig get service config
+   rpc GetHummingbirdConfig(google.protobuf.Empty) returns (ConfigResponse) {}
 }
