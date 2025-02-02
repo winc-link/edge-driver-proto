@@ -178,10 +178,6 @@ message GetDeviceConnectStatusRequest {
 enum ConnectStatus {
   ONLINE = 0;//在线
   OFFLINE = 1;//离线
-  UnACTIVE = 2;//未激活
-  DISABLE = 3;//禁用
-  UnKnow = 4;//未知
-
 }
 
 message GetDeviceConnectStatusResponse {
@@ -208,8 +204,6 @@ service RpcDevice {
   rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceRequestResponse) {}
   // 更新设备
   rpc UpdateDevice(UpdateDeviceRequest) returns (UpdateDeviceRequestResponse) {}
-  // 创建设备并且建立连接
-  rpc CreateDeviceAndConnect(CreateDeviceAndConnectRequest) returns (CreateDeviceAndConnectRequestResponse) {}
   // 删除设备
   rpc DeleteDevice(DeleteDeviceRequest) returns (DeleteDeviceResponse) {}
 }
