@@ -69,7 +69,7 @@ message Device {
   string model = 14;
   map<string, string> External = 15;
   string description = 16;
-  string domain = 17;
+  string transport = 17;
 }
 
 message QueryDeviceListRequest {
@@ -100,7 +100,7 @@ message AddDevice {
   string model = 12;
   map<string, string> External = 13;
   string description = 14;
-  string domain = 15;
+  string transport = 15;
 }
 
 message UpdateDevice {
@@ -119,7 +119,7 @@ message UpdateDevice {
   string model = 12;
   map<string, string> External = 13;
   string description = 14;
-  string domain = 15;
+  string transport = 15;
 }
 
 
