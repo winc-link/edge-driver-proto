@@ -43,13 +43,18 @@ message VersionResponse {
    string version = 2;
 }
 
+enum MetaBasesType{
+   Mysql = 0;
+   Sqlite = 1;
+}
+
 message ConfigResponse{
    MetaBases metaBases = 1;
    DataBases dataBases = 2;
    MessageQueue messageQueue = 3;
 }
 message MetaBases {
-   string Type = 1;
+   MetaBasesType Type = 1;
    string Source = 2;
 }
 
