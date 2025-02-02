@@ -55,16 +55,20 @@ enum DeviceStatus {
 message Device {
   string id = 1;
   string name = 2;
-  string description = 3;
-  string product_id = 4;
+  string product_id = 3;
+  string device_sn  = 4;
   DeviceStatus status = 5;
-  drivercommon.IotPlatform platform = 6;
-  string device_sn  = 7;
-  string secret = 8;
-  string ip = 9;
-  string port = 10;
-  uint32 collect_interval = 11;
-  map<string, string> External = 12;
+  string secret = 6;
+  string ip = 7;
+  string port = 8;
+  string lat = 9;
+  string lon = 10;
+  string location = 11;
+  string parent_id = 12;
+  string manufacturer = 13;
+  string model = 14;
+  map<string, string> External = 15;
+  string description = 16;
 }
 
 message QueryDeviceListRequest {
@@ -83,9 +87,18 @@ message QueryDeviceListResponse {
 message AddDevice {
   string name = 1;
   string product_id = 2;
-  string description = 3;
-  string device_sn    = 4;
-  map<string, string> External = 5;
+  string device_sn    = 3;
+  DeviceStatus status = 4;
+  string ip = 5;
+  string port = 6;
+  string lat = 7;
+  string lon = 8;
+  string location = 9;
+  string parent_id = 10;
+  string manufacturer = 11;
+  string model = 12;
+  map<string, string> External = 13;
+  string description = 14;
 }
 
 
