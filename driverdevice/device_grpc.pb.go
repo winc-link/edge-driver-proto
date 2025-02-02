@@ -25,6 +25,7 @@ const (
 	RpcDevice_QueryDeviceList_FullMethodName        = "/driverdevice.RpcDevice/QueryDeviceList"
 	RpcDevice_QueryDeviceById_FullMethodName        = "/driverdevice.RpcDevice/QueryDeviceById"
 	RpcDevice_CreateDevice_FullMethodName           = "/driverdevice.RpcDevice/CreateDevice"
+	RpcDevice_UpdateDevice_FullMethodName           = "/driverdevice.RpcDevice/UpdateDevice"
 	RpcDevice_CreateDeviceAndConnect_FullMethodName = "/driverdevice.RpcDevice/CreateDeviceAndConnect"
 	RpcDevice_DeleteDevice_FullMethodName           = "/driverdevice.RpcDevice/DeleteDevice"
 )
@@ -45,6 +46,8 @@ type RpcDeviceClient interface {
 	QueryDeviceById(ctx context.Context, in *QueryDeviceByIdRequest, opts ...grpc.CallOption) (*QueryDeviceByIdResponse, error)
 	// 创建设备
 	CreateDevice(ctx context.Context, in *CreateDeviceRequest, opts ...grpc.CallOption) (*CreateDeviceRequestResponse, error)
+	// 更新设备
+	UpdateDevice(ctx context.Context, in *UpdateDeviceRequest, opts ...grpc.CallOption) (*UpdateDeviceRequestResponse, error)
 	// 创建设备并且建立连接
 	CreateDeviceAndConnect(ctx context.Context, in *CreateDeviceAndConnectRequest, opts ...grpc.CallOption) (*CreateDeviceAndConnectRequestResponse, error)
 	// 删除设备
@@ -113,6 +116,15 @@ func (c *rpcDeviceClient) CreateDevice(ctx context.Context, in *CreateDeviceRequ
 	return out, nil
 }
 
+func (c *rpcDeviceClient) UpdateDevice(ctx context.Context, in *UpdateDeviceRequest, opts ...grpc.CallOption) (*UpdateDeviceRequestResponse, error) {
+	out := new(UpdateDeviceRequestResponse)
+	err := c.cc.Invoke(ctx, RpcDevice_UpdateDevice_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *rpcDeviceClient) CreateDeviceAndConnect(ctx context.Context, in *CreateDeviceAndConnectRequest, opts ...grpc.CallOption) (*CreateDeviceAndConnectRequestResponse, error) {
 	out := new(CreateDeviceAndConnectRequestResponse)
 	err := c.cc.Invoke(ctx, RpcDevice_CreateDeviceAndConnect_FullMethodName, in, out, opts...)
@@ -147,6 +159,8 @@ type RpcDeviceServer interface {
 	QueryDeviceById(context.Context, *QueryDeviceByIdRequest) (*QueryDeviceByIdResponse, error)
 	// 创建设备
 	CreateDevice(context.Context, *CreateDeviceRequest) (*CreateDeviceRequestResponse, error)
+	// 更新设备
+	UpdateDevice(context.Context, *UpdateDeviceRequest) (*UpdateDeviceRequestResponse, error)
 	// 创建设备并且建立连接
 	CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*CreateDeviceAndConnectRequestResponse, error)
 	// 删除设备
@@ -175,6 +189,9 @@ func (UnimplementedRpcDeviceServer) QueryDeviceById(context.Context, *QueryDevic
 }
 func (UnimplementedRpcDeviceServer) CreateDevice(context.Context, *CreateDeviceRequest) (*CreateDeviceRequestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDevice not implemented")
+}
+func (UnimplementedRpcDeviceServer) UpdateDevice(context.Context, *UpdateDeviceRequest) (*UpdateDeviceRequestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDevice not implemented")
 }
 func (UnimplementedRpcDeviceServer) CreateDeviceAndConnect(context.Context, *CreateDeviceAndConnectRequest) (*CreateDeviceAndConnectRequestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDeviceAndConnect not implemented")
@@ -303,6 +320,24 @@ func _RpcDevice_CreateDevice_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RpcDevice_UpdateDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDeviceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RpcDeviceServer).UpdateDevice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RpcDevice_UpdateDevice_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RpcDeviceServer).UpdateDevice(ctx, req.(*UpdateDeviceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _RpcDevice_CreateDeviceAndConnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateDeviceAndConnectRequest)
 	if err := dec(in); err != nil {
@@ -369,6 +404,10 @@ var RpcDevice_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateDevice",
 			Handler:    _RpcDevice_CreateDevice_Handler,
+		},
+		{
+			MethodName: "UpdateDevice",
+			Handler:    _RpcDevice_UpdateDevice_Handler,
 		},
 		{
 			MethodName: "CreateDeviceAndConnect",

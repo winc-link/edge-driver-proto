@@ -69,6 +69,7 @@ message Device {
   string model = 14;
   map<string, string> External = 15;
   string description = 16;
+  string domain = 17;
 }
 
 message QueryDeviceListRequest {
@@ -99,6 +100,25 @@ message AddDevice {
   string model = 12;
   map<string, string> External = 13;
   string description = 14;
+  string domain = 15;
+}
+
+message UpdateDevice {
+  string name = 1;
+  string product_id = 2;
+  string device_sn    = 3;
+  DeviceStatus status = 4;
+  string ip = 5;
+  string port = 6;
+  string lat = 7;
+  string lon = 8;
+  string location = 9;
+  string parent_id = 10;
+  string manufacturer = 11;
+  string model = 12;
+  map<string, string> External = 13;
+  string description = 14;
+  string domain = 15;
 }
 
 
@@ -113,6 +133,19 @@ message CreateDeviceRequestResponse {
   }
   Data data = 2;
   drivercommon.CommonResponse baseResponse = 1;
+}
+
+message UpdateDeviceRequestResponse {
+  message Data {
+    Device devices = 2;
+  }
+  Data data = 2;
+  drivercommon.CommonResponse baseResponse = 1;
+}
+
+message UpdateDeviceRequest {
+  drivercommon.BaseRequestMessage baseRequest = 1;
+  UpdateDevice device = 2;
 }
 
 message CreateDeviceAndConnectRequest {
@@ -172,6 +205,8 @@ service RpcDevice {
   rpc QueryDeviceById(QueryDeviceByIdRequest) returns (QueryDeviceByIdResponse) {}
   // 创建设备
   rpc CreateDevice(CreateDeviceRequest) returns (CreateDeviceRequestResponse) {}
+  // 更新设备
+  rpc UpdateDevice(UpdateDeviceRequest) returns (UpdateDeviceRequestResponse) {}
   // 创建设备并且建立连接
   rpc CreateDeviceAndConnect(CreateDeviceAndConnectRequest) returns (CreateDeviceAndConnectRequestResponse) {}
   // 删除设备
