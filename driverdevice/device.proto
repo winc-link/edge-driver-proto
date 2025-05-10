@@ -70,6 +70,8 @@ message Device {
   map<string, string> External = 15;
   string description = 16;
   string transport = 17;
+  string slave_id = 18;
+  string period = 19;
 }
 
 message QueryDeviceListRequest {
