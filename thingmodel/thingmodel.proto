@@ -72,7 +72,21 @@ message ThingModelIssueMsg {
   string data = 3;
 }
 
-// edge 物模型消息下发 sdk
+// 物模型消息下发 sdk
 service ThingModelDownService {
   rpc ThingModelMsgIssue(ThingModelIssueMsg) returns (google.protobuf.Empty) {}
+}
+
+message MessageRateResponse{
+  repeated MessageRate messageRate = 1;
+}
+
+message MessageRate {
+  string t = 1;
+  uint64 upQos = 2;
+  uint64 downQos = 3;
+}
+
+service MessageRateService {
+  rpc MessageRate(google.protobuf.Empty) returns (MessageRateResponse){}
 }
