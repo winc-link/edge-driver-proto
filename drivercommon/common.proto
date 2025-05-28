@@ -62,6 +62,7 @@ message DataBases {
    string Type = 1;
    TDengineSource tdengine = 2;
    InfluxDB influxDB = 3;
+   ClickHouse clickHouse = 4;
 }
 
 message TDengineSource {
@@ -73,6 +74,13 @@ message InfluxDB {
    string bucket = 2;
    string url = 3;
    string token = 4;
+}
+
+message ClickHouse {
+   repeated string addr = 1;
+   string database = 2;
+   string username = 3;
+   string password = 4;
 }
 
 message MessageQueue {
