@@ -8,7 +8,6 @@ package thingmodel
 
 import (
 	context "context"
-	drivercommon "github.com/winc-link/edge-driver-proto/drivercommon"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -19,96 +18,6 @@ import (
 // is compatible with the grpc package it is being compiled against.
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
-
-const (
-	ThingModelUpService_ThingModelMsgReport_FullMethodName = "/thingmodel.ThingModelUpService/ThingModelMsgReport"
-)
-
-// ThingModelUpServiceClient is the client API for ThingModelUpService service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ThingModelUpServiceClient interface {
-	ThingModelMsgReport(ctx context.Context, in *ThingModelMsg, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error)
-}
-
-type thingModelUpServiceClient struct {
-	cc grpc.ClientConnInterface
-}
-
-func NewThingModelUpServiceClient(cc grpc.ClientConnInterface) ThingModelUpServiceClient {
-	return &thingModelUpServiceClient{cc}
-}
-
-func (c *thingModelUpServiceClient) ThingModelMsgReport(ctx context.Context, in *ThingModelMsg, opts ...grpc.CallOption) (*drivercommon.CommonResponse, error) {
-	out := new(drivercommon.CommonResponse)
-	err := c.cc.Invoke(ctx, ThingModelUpService_ThingModelMsgReport_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// ThingModelUpServiceServer is the server API for ThingModelUpService service.
-// All implementations must embed UnimplementedThingModelUpServiceServer
-// for forward compatibility
-type ThingModelUpServiceServer interface {
-	ThingModelMsgReport(context.Context, *ThingModelMsg) (*drivercommon.CommonResponse, error)
-	mustEmbedUnimplementedThingModelUpServiceServer()
-}
-
-// UnimplementedThingModelUpServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedThingModelUpServiceServer struct {
-}
-
-func (UnimplementedThingModelUpServiceServer) ThingModelMsgReport(context.Context, *ThingModelMsg) (*drivercommon.CommonResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ThingModelMsgReport not implemented")
-}
-func (UnimplementedThingModelUpServiceServer) mustEmbedUnimplementedThingModelUpServiceServer() {}
-
-// UnsafeThingModelUpServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ThingModelUpServiceServer will
-// result in compilation errors.
-type UnsafeThingModelUpServiceServer interface {
-	mustEmbedUnimplementedThingModelUpServiceServer()
-}
-
-func RegisterThingModelUpServiceServer(s grpc.ServiceRegistrar, srv ThingModelUpServiceServer) {
-	s.RegisterService(&ThingModelUpService_ServiceDesc, srv)
-}
-
-func _ThingModelUpService_ThingModelMsgReport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ThingModelMsg)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ThingModelUpServiceServer).ThingModelMsgReport(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ThingModelUpService_ThingModelMsgReport_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ThingModelUpServiceServer).ThingModelMsgReport(ctx, req.(*ThingModelMsg))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-// ThingModelUpService_ServiceDesc is the grpc.ServiceDesc for ThingModelUpService service.
-// It's only intended for direct use with grpc.RegisterService,
-// and not to be introspected or modified (even as a copy)
-var ThingModelUpService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "thingmodel.ThingModelUpService",
-	HandlerType: (*ThingModelUpServiceServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "ThingModelMsgReport",
-			Handler:    _ThingModelUpService_ThingModelMsgReport_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "thingmodel/thingmodel.proto",
-}
 
 const (
 	ThingModelDownService_ThingModelMsgIssue_FullMethodName = "/thingmodel.ThingModelDownService/ThingModelMsgIssue"
