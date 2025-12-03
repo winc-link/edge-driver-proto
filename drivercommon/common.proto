@@ -51,7 +51,7 @@ enum MetaBasesType{
 message ConfigResponse{
    MetaBases metaBases = 1;
    DataBases dataBases = 2;
-   MessageQueue messageQueue = 3;
+   RedisBases redisBases = 3;
 }
 message MetaBases {
    MetaBasesType Type = 1;
@@ -83,12 +83,10 @@ message ClickHouse {
    string password = 4;
 }
 
-message MessageQueue {
-   string Protocol = 1;
-   string Host = 2;
-   uint32 Port = 3;
-   string Type = 4;
-   string PublishTopicPrefix = 5;
+message RedisBases {
+   string Address = 1;
+   string Password = 2;
+   int32 DB = 3;
 }
 
 service Common {
