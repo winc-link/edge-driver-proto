@@ -15,7 +15,7 @@ message ThingModelMsg {
 
 
 
-// sdk 物模型消息上报 edge
+// sdk 物模型消息上报
 //service ThingModelUpService {
 //  rpc ThingModelMsgReport(ThingModelMsg) returns (drivercommon.CommonResponse) {}
 //}

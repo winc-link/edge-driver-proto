@@ -19,8 +19,6 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	RpcDevice_ConnectIotPlatform_FullMethodName     = "/driverdevice.RpcDevice/ConnectIotPlatform"
-	RpcDevice_DisconnectIotPlatform_FullMethodName  = "/driverdevice.RpcDevice/DisconnectIotPlatform"
 	RpcDevice_GetDeviceConnectStatus_FullMethodName = "/driverdevice.RpcDevice/GetDeviceConnectStatus"
 	RpcDevice_QueryDeviceList_FullMethodName        = "/driverdevice.RpcDevice/QueryDeviceList"
 	RpcDevice_QueryDeviceById_FullMethodName        = "/driverdevice.RpcDevice/QueryDeviceById"
@@ -34,9 +32,13 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RpcDeviceClient interface {
 	// 设备连接云服务 edge s driver c
-	ConnectIotPlatform(ctx context.Context, in *ConnectIotPlatformRequest, opts ...grpc.CallOption) (*ConnectIotPlatformResponse, error)
+	//
+	//	rpc ConnectIotPlatform(ConnectIotPlatformRequest) returns (ConnectIotPlatformResponse) {}
+	//
 	// 设备断开连接云服务
-	DisconnectIotPlatform(ctx context.Context, in *DisconnectIotPlatformRequest, opts ...grpc.CallOption) (*DisconnectIotPlatformResponse, error)
+	//
+	//	rpc DisconnectIotPlatform(DisconnectIotPlatformRequest) returns (DisconnectIotPlatformResponse) {}
+	//
 	// 设备连接状态
 	GetDeviceConnectStatus(ctx context.Context, in *GetDeviceConnectStatusRequest, opts ...grpc.CallOption) (*GetDeviceConnectStatusResponse, error)
 	// 获取所有设备
@@ -57,24 +59,6 @@ type rpcDeviceClient struct {
 
 func NewRpcDeviceClient(cc grpc.ClientConnInterface) RpcDeviceClient {
 	return &rpcDeviceClient{cc}
-}
-
-func (c *rpcDeviceClient) ConnectIotPlatform(ctx context.Context, in *ConnectIotPlatformRequest, opts ...grpc.CallOption) (*ConnectIotPlatformResponse, error) {
-	out := new(ConnectIotPlatformResponse)
-	err := c.cc.Invoke(ctx, RpcDevice_ConnectIotPlatform_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *rpcDeviceClient) DisconnectIotPlatform(ctx context.Context, in *DisconnectIotPlatformRequest, opts ...grpc.CallOption) (*DisconnectIotPlatformResponse, error) {
-	out := new(DisconnectIotPlatformResponse)
-	err := c.cc.Invoke(ctx, RpcDevice_DisconnectIotPlatform_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *rpcDeviceClient) GetDeviceConnectStatus(ctx context.Context, in *GetDeviceConnectStatusRequest, opts ...grpc.CallOption) (*GetDeviceConnectStatusResponse, error) {
@@ -136,9 +120,13 @@ func (c *rpcDeviceClient) DeleteDevice(ctx context.Context, in *DeleteDeviceRequ
 // for forward compatibility
 type RpcDeviceServer interface {
 	// 设备连接云服务 edge s driver c
-	ConnectIotPlatform(context.Context, *ConnectIotPlatformRequest) (*ConnectIotPlatformResponse, error)
+	//
+	//	rpc ConnectIotPlatform(ConnectIotPlatformRequest) returns (ConnectIotPlatformResponse) {}
+	//
 	// 设备断开连接云服务
-	DisconnectIotPlatform(context.Context, *DisconnectIotPlatformRequest) (*DisconnectIotPlatformResponse, error)
+	//
+	//	rpc DisconnectIotPlatform(DisconnectIotPlatformRequest) returns (DisconnectIotPlatformResponse) {}
+	//
 	// 设备连接状态
 	GetDeviceConnectStatus(context.Context, *GetDeviceConnectStatusRequest) (*GetDeviceConnectStatusResponse, error)
 	// 获取所有设备
@@ -158,12 +146,6 @@ type RpcDeviceServer interface {
 type UnimplementedRpcDeviceServer struct {
 }
 
-func (UnimplementedRpcDeviceServer) ConnectIotPlatform(context.Context, *ConnectIotPlatformRequest) (*ConnectIotPlatformResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ConnectIotPlatform not implemented")
-}
-func (UnimplementedRpcDeviceServer) DisconnectIotPlatform(context.Context, *DisconnectIotPlatformRequest) (*DisconnectIotPlatformResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DisconnectIotPlatform not implemented")
-}
 func (UnimplementedRpcDeviceServer) GetDeviceConnectStatus(context.Context, *GetDeviceConnectStatusRequest) (*GetDeviceConnectStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDeviceConnectStatus not implemented")
 }
@@ -193,42 +175,6 @@ type UnsafeRpcDeviceServer interface {
 
 func RegisterRpcDeviceServer(s grpc.ServiceRegistrar, srv RpcDeviceServer) {
 	s.RegisterService(&RpcDevice_ServiceDesc, srv)
-}
-
-func _RpcDevice_ConnectIotPlatform_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ConnectIotPlatformRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RpcDeviceServer).ConnectIotPlatform(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: RpcDevice_ConnectIotPlatform_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RpcDeviceServer).ConnectIotPlatform(ctx, req.(*ConnectIotPlatformRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _RpcDevice_DisconnectIotPlatform_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DisconnectIotPlatformRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RpcDeviceServer).DisconnectIotPlatform(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: RpcDevice_DisconnectIotPlatform_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RpcDeviceServer).DisconnectIotPlatform(ctx, req.(*DisconnectIotPlatformRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _RpcDevice_GetDeviceConnectStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -346,14 +292,6 @@ var RpcDevice_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "driverdevice.RpcDevice",
 	HandlerType: (*RpcDeviceServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "ConnectIotPlatform",
-			Handler:    _RpcDevice_ConnectIotPlatform_Handler,
-		},
-		{
-			MethodName: "DisconnectIotPlatform",
-			Handler:    _RpcDevice_DisconnectIotPlatform_Handler,
-		},
 		{
 			MethodName: "GetDeviceConnectStatus",
 			Handler:    _RpcDevice_GetDeviceConnectStatus_Handler,
