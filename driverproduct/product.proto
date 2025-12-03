@@ -47,7 +47,7 @@ message Product {
   repeated Events events = 10;//事件
   repeated Actions actions = 11; //动作
   string key = 12;
-  string LuaScriptEnable = 14;//lua解析脚本开关
+  bool LuaScriptEnable = 14;//lua解析脚本开关
   string LuaScript = 15;//lua解析脚本
   string DriveInstanceId = 16;//关联驱动实例ID
 }
