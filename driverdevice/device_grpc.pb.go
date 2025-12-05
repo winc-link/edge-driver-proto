@@ -31,14 +31,6 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RpcDeviceClient interface {
-	// 设备连接云服务 edge s driver c
-	//
-	//	rpc ConnectIotPlatform(ConnectIotPlatformRequest) returns (ConnectIotPlatformResponse) {}
-	//
-	// 设备断开连接云服务
-	//
-	//	rpc DisconnectIotPlatform(DisconnectIotPlatformRequest) returns (DisconnectIotPlatformResponse) {}
-	//
 	// 设备连接状态
 	GetDeviceConnectStatus(ctx context.Context, in *GetDeviceConnectStatusRequest, opts ...grpc.CallOption) (*GetDeviceConnectStatusResponse, error)
 	// 获取所有设备
@@ -119,14 +111,6 @@ func (c *rpcDeviceClient) DeleteDevice(ctx context.Context, in *DeleteDeviceRequ
 // All implementations must embed UnimplementedRpcDeviceServer
 // for forward compatibility
 type RpcDeviceServer interface {
-	// 设备连接云服务 edge s driver c
-	//
-	//	rpc ConnectIotPlatform(ConnectIotPlatformRequest) returns (ConnectIotPlatformResponse) {}
-	//
-	// 设备断开连接云服务
-	//
-	//	rpc DisconnectIotPlatform(DisconnectIotPlatformRequest) returns (DisconnectIotPlatformResponse) {}
-	//
 	// 设备连接状态
 	GetDeviceConnectStatus(context.Context, *GetDeviceConnectStatusRequest) (*GetDeviceConnectStatusResponse, error)
 	// 获取所有设备

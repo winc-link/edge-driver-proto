@@ -16,9 +16,9 @@ message ThingModelMsg {
 
 
 // sdk 物模型消息上报
-//service ThingModelUpService {
-//  rpc ThingModelMsgReport(ThingModelMsg) returns (drivercommon.CommonResponse) {}
-//}
+service ThingModelUpService {
+  rpc ThingModelMsgReport(ThingModelMsg) returns (drivercommon.CommonResponse) {}
+}
 
 enum OperationType {
   UNSPECIFIED = 0;
@@ -34,7 +34,7 @@ enum OperationType {
   CUSTOM_MQTT_PUBLISH = 9; //云端自定义topic 消息下发
   //上报相关
   PROPERTY_REPORT = 20;    // 属性上报
-  PROPERTY_SET_RESPONSE = 21;   // 响应云端下发属性请求
+  PROPERTY_SET_RESPONSE = 21;   // 响应云端下发属性设置请求
   PROPERTY_GET_RESPONSE = 22;   // 响应云端下发属性查询请求
   SERVICE_EXECUTE_RESPONSE = 23;     // 响应云端下发设备服务调用请求
   EVENT_REPORT = 24;  // 事件上报
