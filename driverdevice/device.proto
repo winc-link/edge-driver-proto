@@ -73,6 +73,7 @@ message Device {
   string slave_id = 18;
   string period = 19;
   string imei = 20;
+  string firmware = 21;
 }
 
 message QueryDeviceListRequest {
