@@ -20,9 +20,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	DeviceCallBackService_CreateDeviceCallback_FullMethodName = "/devicecallback.DeviceCallBackService/CreateDeviceCallback"
-	DeviceCallBackService_UpdateDeviceCallback_FullMethodName = "/devicecallback.DeviceCallBackService/UpdateDeviceCallback"
-	DeviceCallBackService_DeleteDeviceCallback_FullMethodName = "/devicecallback.DeviceCallBackService/DeleteDeviceCallback"
+	DeviceCallBackService_CreateDeviceCallback_FullMethodName      = "/devicecallback.DeviceCallBackService/CreateDeviceCallback"
+	DeviceCallBackService_UpdateDeviceCallback_FullMethodName      = "/devicecallback.DeviceCallBackService/UpdateDeviceCallback"
+	DeviceCallBackService_DeleteDeviceCallback_FullMethodName      = "/devicecallback.DeviceCallBackService/DeleteDeviceCallback"
+	DeviceCallBackService_BatchCreateDeviceCallback_FullMethodName = "/devicecallback.DeviceCallBackService/BatchCreateDeviceCallback"
 )
 
 // DeviceCallBackServiceClient is the client API for DeviceCallBackService service.
@@ -35,6 +36,8 @@ type DeviceCallBackServiceClient interface {
 	UpdateDeviceCallback(ctx context.Context, in *UpdateDeviceCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// 删除设备回调 edge = c driver = s
 	DeleteDeviceCallback(ctx context.Context, in *DeleteDeviceCallbackRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// 批量创建设备
+	BatchCreateDeviceCallback(ctx context.Context, in *BatchCreateDeviceCallback, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type deviceCallBackServiceClient struct {
@@ -72,6 +75,15 @@ func (c *deviceCallBackServiceClient) DeleteDeviceCallback(ctx context.Context, 
 	return out, nil
 }
 
+func (c *deviceCallBackServiceClient) BatchCreateDeviceCallback(ctx context.Context, in *BatchCreateDeviceCallback, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, DeviceCallBackService_BatchCreateDeviceCallback_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DeviceCallBackServiceServer is the server API for DeviceCallBackService service.
 // All implementations must embed UnimplementedDeviceCallBackServiceServer
 // for forward compatibility
@@ -82,6 +94,8 @@ type DeviceCallBackServiceServer interface {
 	UpdateDeviceCallback(context.Context, *UpdateDeviceCallbackRequest) (*emptypb.Empty, error)
 	// 删除设备回调 edge = c driver = s
 	DeleteDeviceCallback(context.Context, *DeleteDeviceCallbackRequest) (*emptypb.Empty, error)
+	// 批量创建设备
+	BatchCreateDeviceCallback(context.Context, *BatchCreateDeviceCallback) (*emptypb.Empty, error)
 	mustEmbedUnimplementedDeviceCallBackServiceServer()
 }
 
@@ -97,6 +111,9 @@ func (UnimplementedDeviceCallBackServiceServer) UpdateDeviceCallback(context.Con
 }
 func (UnimplementedDeviceCallBackServiceServer) DeleteDeviceCallback(context.Context, *DeleteDeviceCallbackRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDeviceCallback not implemented")
+}
+func (UnimplementedDeviceCallBackServiceServer) BatchCreateDeviceCallback(context.Context, *BatchCreateDeviceCallback) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BatchCreateDeviceCallback not implemented")
 }
 func (UnimplementedDeviceCallBackServiceServer) mustEmbedUnimplementedDeviceCallBackServiceServer() {}
 
@@ -165,6 +182,24 @@ func _DeviceCallBackService_DeleteDeviceCallback_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DeviceCallBackService_BatchCreateDeviceCallback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BatchCreateDeviceCallback)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeviceCallBackServiceServer).BatchCreateDeviceCallback(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DeviceCallBackService_BatchCreateDeviceCallback_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceCallBackServiceServer).BatchCreateDeviceCallback(ctx, req.(*BatchCreateDeviceCallback))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DeviceCallBackService_ServiceDesc is the grpc.ServiceDesc for DeviceCallBackService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -183,6 +218,10 @@ var DeviceCallBackService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteDeviceCallback",
 			Handler:    _DeviceCallBackService_DeleteDeviceCallback_Handler,
+		},
+		{
+			MethodName: "BatchCreateDeviceCallback",
+			Handler:    _DeviceCallBackService_BatchCreateDeviceCallback_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

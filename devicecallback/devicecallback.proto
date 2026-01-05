@@ -20,6 +20,11 @@ message deleteDeviceCallbackRequest {
   uint64 happenTime = 2;
 }
 
+message batchCreateDeviceCallback {
+  repeated driverdevice.Device Data = 1;
+  uint64 happenTime = 2;
+}
+
 service DeviceCallBackService {
   // 创建设备回调 edge = c driver = s
   rpc CreateDeviceCallback(createDeviceCallbackRequest) returns (google.protobuf.Empty) {}
@@ -27,4 +32,6 @@ service DeviceCallBackService {
   rpc UpdateDeviceCallback(updateDeviceCallbackRequest) returns (google.protobuf.Empty) {}
   // 删除设备回调 edge = c driver = s
   rpc DeleteDeviceCallback(deleteDeviceCallbackRequest) returns (google.protobuf.Empty) {}
+  // 批量创建设备
+  rpc BatchCreateDeviceCallback(batchCreateDeviceCallback) returns (google.protobuf.Empty) {}
 }
