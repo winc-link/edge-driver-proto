@@ -2,14 +2,30 @@ syntax = "proto3";
 package gateway;
 option go_package = "github.com/winc-link/edge-driver-proto/gateway";
 import "google/protobuf/empty.proto";
-
+import "drivercommon/common.proto";
 
 service RpcGateway {
-  rpc GetGatewayInfo(google.protobuf.Empty) returns (GateWayInfoResponse) {}
+  rpc GatewayControl(GatewayControlReq) returns (GateWayInfoResponse) {}
+}
+
+enum ControlType {
+  REBOOT = 0;                // 重启
+  RESET_PASSWORD = 1;        // 重置密码
+  CLEAN_LOG = 2;             // 清理日志
+  FACTORY_RESET = 3;         // 格式化
+  CLEAN_TF_CARD = 4;         // TF 卡格式化
+  GATEWAY_STATUS_REPORT = 5; // 网关状态上报
+  TRIGGER_BUZZER = 6;        // 蜂鸣器响铃
+  DEVICE_SYNC = 7;           // 设备同步
+  DEVICE_BATCH_SYNC = 8;     // 设备批量同步
+};
+
+message GatewayControlReq{
+  string gatewaySn = 1; // 下发的目标设备id
+  ControlType controlType = 2;
+  string data = 3;
 }
 
 message GateWayInfoResponse {
-  string env = 2;
-  string gw_id = 3;
-  string local_key = 4;
+  drivercommon.CommonResponse baseResponse = 1;
 }
