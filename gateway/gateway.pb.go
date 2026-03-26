@@ -10,7 +10,6 @@ import (
 	drivercommon "github.com/winc-link/edge-driver-proto/drivercommon"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	_ "google.golang.org/protobuf/types/known/emptypb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -198,7 +197,7 @@ var File_gateway_gateway_proto protoreflect.FileDescriptor
 
 const file_gateway_gateway_proto_rawDesc = "" +
 	"\n" +
-	"\x15gateway/gateway.proto\x12\agateway\x1a\x1bgoogle/protobuf/empty.proto\x1a\x19drivercommon/common.proto\"}\n" +
+	"\x15gateway/gateway.proto\x12\agateway\x1a\x19drivercommon/common.proto\"}\n" +
 	"\x11GatewayControlReq\x12\x1c\n" +
 	"\tgatewaySn\x18\x01 \x01(\tR\tgatewaySn\x126\n" +
 	"\vcontrolType\x18\x02 \x01(\x0e2\x14.gateway.ControlTypeR\vcontrolType\x12\x12\n" +
