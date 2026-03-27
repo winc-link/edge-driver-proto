@@ -25,29 +25,33 @@ const (
 type ControlType int32
 
 const (
-	ControlType_REBOOT                ControlType = 0 // 重启
-	ControlType_RESET_PASSWORD        ControlType = 1 // 重置密码
-	ControlType_CLEAN_LOG             ControlType = 2 // 清理日志
-	ControlType_FACTORY_RESET         ControlType = 3 // 格式化
-	ControlType_CLEAN_TF_CARD         ControlType = 4 // TF 卡格式化
-	ControlType_GATEWAY_STATUS_REPORT ControlType = 5 // 网关状态上报
-	ControlType_TRIGGER_BUZZER        ControlType = 6 // 蜂鸣器响铃
-	ControlType_DEVICE_SYNC           ControlType = 7 // 设备同步
-	ControlType_DEVICE_BATCH_SYNC     ControlType = 8 // 设备批量同步
+	ControlType_REBOOT                ControlType = 0  // 重启
+	ControlType_RESET_PASSWORD        ControlType = 1  // 重置密码
+	ControlType_CLEAN_LOG             ControlType = 2  // 清理日志
+	ControlType_FACTORY_RESET         ControlType = 3  // 格式化
+	ControlType_CLEAN_TF_CARD         ControlType = 4  // TF 卡格式化
+	ControlType_GATEWAY_STATUS_REPORT ControlType = 5  // 网关状态上报
+	ControlType_TRIGGER_BUZZER        ControlType = 6  // 蜂鸣器响铃
+	ControlType_DEVICE_ADD            ControlType = 7  // 设备添加
+	ControlType_DEVICE_BATCH_ADD      ControlType = 8  // 设备批量添加
+	ControlType_DEVICE_DEL            ControlType = 9  // 设备删除
+	ControlType_DEVICE_BATCH_DEL      ControlType = 10 // 设备批量删除
 )
 
 // Enum value maps for ControlType.
 var (
 	ControlType_name = map[int32]string{
-		0: "REBOOT",
-		1: "RESET_PASSWORD",
-		2: "CLEAN_LOG",
-		3: "FACTORY_RESET",
-		4: "CLEAN_TF_CARD",
-		5: "GATEWAY_STATUS_REPORT",
-		6: "TRIGGER_BUZZER",
-		7: "DEVICE_SYNC",
-		8: "DEVICE_BATCH_SYNC",
+		0:  "REBOOT",
+		1:  "RESET_PASSWORD",
+		2:  "CLEAN_LOG",
+		3:  "FACTORY_RESET",
+		4:  "CLEAN_TF_CARD",
+		5:  "GATEWAY_STATUS_REPORT",
+		6:  "TRIGGER_BUZZER",
+		7:  "DEVICE_ADD",
+		8:  "DEVICE_BATCH_ADD",
+		9:  "DEVICE_DEL",
+		10: "DEVICE_BATCH_DEL",
 	}
 	ControlType_value = map[string]int32{
 		"REBOOT":                0,
@@ -57,8 +61,10 @@ var (
 		"CLEAN_TF_CARD":         4,
 		"GATEWAY_STATUS_REPORT": 5,
 		"TRIGGER_BUZZER":        6,
-		"DEVICE_SYNC":           7,
-		"DEVICE_BATCH_SYNC":     8,
+		"DEVICE_ADD":            7,
+		"DEVICE_BATCH_ADD":      8,
+		"DEVICE_DEL":            9,
+		"DEVICE_BATCH_DEL":      10,
 	}
 )
 
@@ -203,7 +209,7 @@ const file_gateway_gateway_proto_rawDesc = "" +
 	"\vcontrolType\x18\x02 \x01(\x0e2\x14.gateway.ControlTypeR\vcontrolType\x12\x12\n" +
 	"\x04data\x18\x03 \x01(\tR\x04data\"W\n" +
 	"\x13GateWayInfoResponse\x12@\n" +
-	"\fbaseResponse\x18\x01 \x01(\v2\x1c.drivercommon.CommonResponseR\fbaseResponse*\xb9\x01\n" +
+	"\fbaseResponse\x18\x01 \x01(\v2\x1c.drivercommon.CommonResponseR\fbaseResponse*\xdd\x01\n" +
 	"\vControlType\x12\n" +
 	"\n" +
 	"\x06REBOOT\x10\x00\x12\x12\n" +
@@ -212,9 +218,14 @@ const file_gateway_gateway_proto_rawDesc = "" +
 	"\rFACTORY_RESET\x10\x03\x12\x11\n" +
 	"\rCLEAN_TF_CARD\x10\x04\x12\x19\n" +
 	"\x15GATEWAY_STATUS_REPORT\x10\x05\x12\x12\n" +
-	"\x0eTRIGGER_BUZZER\x10\x06\x12\x0f\n" +
-	"\vDEVICE_SYNC\x10\a\x12\x15\n" +
-	"\x11DEVICE_BATCH_SYNC\x10\b2Z\n" +
+	"\x0eTRIGGER_BUZZER\x10\x06\x12\x0e\n" +
+	"\n" +
+	"DEVICE_ADD\x10\a\x12\x14\n" +
+	"\x10DEVICE_BATCH_ADD\x10\b\x12\x0e\n" +
+	"\n" +
+	"DEVICE_DEL\x10\t\x12\x14\n" +
+	"\x10DEVICE_BATCH_DEL\x10\n" +
+	"2Z\n" +
 	"\n" +
 	"RpcGateway\x12L\n" +
 	"\x0eGatewayControl\x12\x1a.gateway.GatewayControlReq\x1a\x1c.gateway.GateWayInfoResponse\"\x00B0Z.github.com/winc-link/edge-driver-proto/gatewayb\x06proto3"

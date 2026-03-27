@@ -15,8 +15,10 @@ enum ControlType {
   CLEAN_TF_CARD = 4;         // TF 卡格式化
   GATEWAY_STATUS_REPORT = 5; // 网关状态上报
   TRIGGER_BUZZER = 6;        // 蜂鸣器响铃
-  DEVICE_SYNC = 7;           // 设备同步
-  DEVICE_BATCH_SYNC = 8;     // 设备批量同步
+  DEVICE_ADD = 7;            // 设备添加
+  DEVICE_BATCH_ADD = 8;      // 设备批量添加
+  DEVICE_DEL = 9;            // 设备删除
+  DEVICE_BATCH_DEL = 10;     // 设备批量删除
 };
 
 message GatewayControlReq{
